@@ -1,0 +1,103 @@
+<!--
+  Using https://github.com/morganherlocker/cubic-spline
+-->
+
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name=keywords  content="coma, separated, keywords" />
+    <meta name=description  content="This is the description" />
+    <meta  property=og:title content="Page Title" />
+    <meta  property=og:description content="This is the description" />
+    <meta  property=og:image content="http://me.jonathanlurie.fr/images/bg.jpg" />
+
+    <title>The Title</title>
+
+    <!-- <link rel="stylesheet" href="style.css" type="text/css" /> -->
+    <style>
+
+      body {
+        margin:0;
+        font-family: "Lucida Console", monospace;
+        font-size: 15px;
+      }
+      
+      #myCanvas {
+        margin: 10px;
+      }
+
+    </style>
+
+    <!--<script src=""></script>-->
+    
+    <script src="cubic-spline-browser.js"></script>
+    
+  </head>
+  <body>
+    <div id="main">hello</div>
+    
+    <canvas id="myCanvas" width="500" height="500" style="border:1px solid #d3d3d3;"></canvas>
+
+    <script>
+    var canvas = document.getElementById("myCanvas");
+    console.log(canvas.width);
+    console.log(canvas.height);
+    var ctx = canvas.getContext("2d");
+    canvas.addEventListener('mousemove', canvasMouseMove, false);
+    canvas.addEventListener('mouseup', canvasMouseUp, false);
+    canvas.addEventListener('mousedown', canvasMouseDown, false);
+    
+    var xSeries = [0, 100, 200, 300, 400, 500];
+    var ySeries = [0, 20 , 400, 30 , 20 , 400];
+
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    
+    var xRange = 500;
+    for(var x=0; x<xRange; x++){
+      var y = spline(x, xSeries, ySeries);
+      ctx.lineTo(x, y);
+      
+    }
+    ctx.stroke();
+    ctx.closePath()
+    
+    
+    // control points
+    for(var i=0; i<xSeries.length; i++){
+      ctx.beginPath();
+      ctx.arc(xSeries[i], ySeries[i], 5, 0, 2*Math.PI);
+      ctx.fill();
+      ctx.closePath()
+    }
+    
+    function getMousePos(canvas, evt) {
+      var rect = canvas.getBoundingClientRect();
+      return {
+        x: evt.clientX - rect.left,
+        y: evt.clientY - rect.top
+      };
+    }
+    
+    function canvasMouseMove(evt){
+      var mousePos = getMousePos(canvas, evt);
+      console.log( 'moving: ' + mousePos.x + ',' + mousePos.y );
+      
+    }
+    
+    function canvasMouseUp(evt){
+      var mousePos = getMousePos(canvas, evt);
+      console.log( 'up: ' + mousePos.x + ',' + mousePos.y );
+    }
+    
+    function canvasMouseDown(evt){
+      var mousePos = getMousePos(canvas, evt);
+      console.log( 'down: ' + mousePos.x + ',' + mousePos.y );
+    }
+    
+    
+    </script>
+
+  <body>
+</html>
