@@ -22,81 +22,38 @@
         font-family: "Lucida Console", monospace;
         font-size: 15px;
       }
-      
-      #myCanvas {
+
+      #parent {
         margin: 10px;
       }
 
     </style>
 
     <!--<script src=""></script>-->
-    
-    <script src="cubic-spline-browser.js"></script>
-    
+
+    <script src="js/cubic-spline-browser.js"></script>
+    <script src="js/CanvasSpliner.js"></script>
+
   </head>
   <body>
     <div id="main">hello</div>
-    
-    <canvas id="myCanvas" width="500" height="500" style="border:1px solid #d3d3d3;"></canvas>
+
+    <div id="parent"></div>
 
     <script>
-    var canvas = document.getElementById("myCanvas");
-    console.log(canvas.width);
-    console.log(canvas.height);
-    var ctx = canvas.getContext("2d");
-    canvas.addEventListener('mousemove', canvasMouseMove, false);
-    canvas.addEventListener('mouseup', canvasMouseUp, false);
-    canvas.addEventListener('mousedown', canvasMouseDown, false);
-    
-    var xSeries = [0, 100, 200, 300, 400, 500];
-    var ySeries = [0, 20 , 400, 30 , 20 , 400];
 
-    ctx.beginPath();
-    ctx.moveTo(0, 0);
-    
-    var xRange = 500;
-    for(var x=0; x<xRange; x++){
-      var y = spline(x, xSeries, ySeries);
-      ctx.lineTo(x, y);
-      
-    }
-    ctx.stroke();
-    ctx.closePath()
-    
-    
-    // control points
-    for(var i=0; i<xSeries.length; i++){
-      ctx.beginPath();
-      ctx.arc(xSeries[i], ySeries[i], 5, 0, 2*Math.PI);
-      ctx.fill();
-      ctx.closePath()
-    }
-    
-    function getMousePos(canvas, evt) {
-      var rect = canvas.getBoundingClientRect();
-      return {
-        x: evt.clientX - rect.left,
-        y: evt.clientY - rect.top
-      };
-    }
-    
-    function canvasMouseMove(evt){
-      var mousePos = getMousePos(canvas, evt);
-      console.log( 'moving: ' + mousePos.x + ',' + mousePos.y );
-      
-    }
-    
-    function canvasMouseUp(evt){
-      var mousePos = getMousePos(canvas, evt);
-      console.log( 'up: ' + mousePos.x + ',' + mousePos.y );
-    }
-    
-    function canvasMouseDown(evt){
-      var mousePos = getMousePos(canvas, evt);
-      console.log( 'down: ' + mousePos.x + ',' + mousePos.y );
-    }
-    
-    
+    var cs = new CanvasSpliner("parent", 300, 300);
+    cs.add( {x:20, y: 40} );
+    cs.add( {x:100, y: 100} );
+    cs.add( {x:150, y: 40} );
+    cs.add( {x:200, y: 100} );
+
+    console.log( cs.getValue( 10 ) );
+
+
+
+
+
     </script>
 
   <body>
