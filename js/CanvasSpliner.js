@@ -20,8 +20,8 @@ class CanvasSpliner {
     // color of the control points
     this._controlPointStyle = {
       idle: "rgba(255, 0, 0, 0.5)",
-      hovered: "rgba(0, 255, 0, 0.5)",
-      grabed: "rgba(0, 0, 255, 0.5)"
+      hovered: "rgba(0, 0, 255, 0.5)",
+      grabed: "rgba(0, 200, 0, 0.5)"
     }
 
     // style of the curve
@@ -40,11 +40,8 @@ class CanvasSpliner {
     this._pointGrabedIndex = -1;
     this._mouseDown = false; // says if the mouse is maintained clicked
 
-
     this._canvas = null;
     this._ctx = null;
-
-
 
     this._screenRatio = window.devicePixelRatio;
 
@@ -54,8 +51,6 @@ class CanvasSpliner {
     if(!parentElem)
       return;
 
-
-
     // creating the canvas
     this._canvas = document.createElement('canvas');
     this._canvas.width  = width;
@@ -64,6 +59,7 @@ class CanvasSpliner {
     this._canvas.style.outline = "none";
     this._canvas.style.cursor = "default";
     this._canvas.style.border = this._borderStyle.out;
+    this._canvas.onselectstart = function () { return false; }
     this._width = width;
     this._height = height;
 
@@ -78,6 +74,7 @@ class CanvasSpliner {
     this._canvas.addEventListener('mousemove', this._onCanvasMouseMove.bind(this), false);
     this._canvas.addEventListener('mousedown', this._onCanvasMouseDown.bind(this), false);
     this._canvas.addEventListener('mouseup', this._onCanvasMouseUp.bind(this), false);
+    this._canvas.addEventListener('dblclick', this._onCanvasMouseDbclick.bind(this), false);
     this._canvas.addEventListener('mouseleave', this._onCanvasMouseLeave.bind(this), false);
     this._canvas.addEventListener('mouseenter', this._onCanvasMouseEnter.bind(this), false);
 
@@ -117,7 +114,6 @@ class CanvasSpliner {
 
     // no point is currently grabbed
     if(this._pointGrabedIndex == -1){
-      console.log("llll");
       // the pointer hovers a point
       if( closestPointInfo.distance <= this._controlPointRadius.idle){
         this._pointHoveredIndex = closestPointInfo.index;
@@ -130,9 +126,9 @@ class CanvasSpliner {
     }
     // a point is grabbed
     else{
-      this._pointCollection.updatePoint( this._pointGrabedIndex, this._mouse )
+      this._pointGrabedIndex = this._pointCollection.updatePoint( this._pointGrabedIndex, this._mouse )
+      this._pointHoveredIndex = this._pointGrabedIndex;
     }
-
 
     this.draw();
   }
@@ -169,6 +165,20 @@ class CanvasSpliner {
     this.draw();
   }
 
+  _onCanvasMouseDbclick(evt){
+    console.log("dbclick");
+    this._canvas.focus();
+
+    if(this._pointHoveredIndex == -1 ){
+      var index = this.add( {x: this._mouse.x / this._width, y: this._mouse.y / this._height} );
+      this._pointHoveredIndex = index;
+    }else{
+      this.remove( this._pointHoveredIndex );
+      this._pointHoveredIndex = -1;
+      this._pointGrabedIndex = -1;
+    }
+
+  }
 
   /**
   * [EVENT] [PRIVATE]
@@ -179,6 +189,12 @@ class CanvasSpliner {
     console.log( "leave" );
     this._canvas.blur();
     this._canvas.style.border = this._borderStyle.out;
+
+    this._mouseDown = false;
+    this._pointGrabedIndex = -1;
+    this._pointHoveredIndex = -1;
+
+    this.draw();
   }
 
 
@@ -203,31 +219,44 @@ class CanvasSpliner {
       return;
 
     console.log("pressed: " + evt.key);
-  }
 
+    switch (evt.key) {
+      case "d":
+        this.remove( this._pointHoveredIndex );
+        break;
+      default:
 
-  /**
-  * Init with an array of points.
-  * @param {Array} pts - array of points, each point must be like {x: NUmber, y: Number}
-  */
-  initWithPoints( pts ){
-    for(var i=0; i<pts.length; i++){
-      if("x" in pts[i] && "y" in pts[i]){
-        this._pointCollection.add( pts[i] );
-      }
     }
   }
 
+
+
+  /**
+  * Add a point to the collection
+  * @param {Object} pt - of type {x: Number, y: Number} and optionnally the boolean properties "xLocked" and "yLocked". x and y must be in [0, 1]
+  */
   add( pt, draw = true ){
+    var index = null;
+
     if("x" in pt && "y" in pt){
-      this._pointCollection.add( pt );
+      pt.x *= this._width;
+      pt.y *= this._height;
+      index = this._pointCollection.add( pt );
+      console.log("a point is added");
     }
 
     if( draw ){
       this.draw();
     }
+
+    return index;
   }
 
+
+  remove( index ){
+    this._pointCollection.remove( index );
+    this.draw();
+  }
 
   draw(){
     this._ctx.clearRect(0, 0, this._width, this._height);
@@ -350,14 +379,26 @@ class PointCollection {
   *
   */
   add( p ){
-    if(p.x >= this._min.x && p.x < this._max.x && p.y >= this._min.y && p.y < this._max.y)
+    var newIndex = null;
+
+    if(p.x >= this._min.x && p.x <= this._max.x && p.y >= this._min.y && p.y <= this._max.y)
     {
+
+      if( !("xLocked" in p) )
+        p.xLocked = false;
+
+      if( !("yLocked" in p) )
+        p.yLocked = false;
+
+      if( !("safe" in p) )
+        p.safe = false;
+
       // adding the point
       this._points.push( p );
-
       this._sortPoints();
-
+      newIndex = this._points.indexOf( p )
     }
+    return newIndex;
   }
 
 
@@ -377,7 +418,7 @@ class PointCollection {
   remove( index ){
     var removedPoint = null;
 
-    if(index > 0 && index < this._points.length){
+    if(index >= 0 && index < this._points.length && !this._points[index].safe){
       removedPoint = this._points.splice(index, 1);
     }
 
@@ -442,18 +483,29 @@ class PointCollection {
   * Update the posiiton of an existing point
   * @param {Number} index - index of the existing point to update
   * @param {Object} p - point that has coord we want to use as new coord. x and y values will be copied, no pointer association
+  * @return {Number} new index, the changed point may have changed its index among the x-ordered list
   */
   updatePoint( index, p ){
+    var newIndex = index;
 
-    if(index > 0 && index < this._points.length){
+    if(index >= 0 && index < this._points.length){
       if(p.x >= this._min.x && p.x < this._max.x && p.y >= this._min.y && p.y < this._max.y){
-        this._points[index].x = p.x;
-        this._points[index].y = p.y;
 
+        if(!this._points[index].xLocked)
+          this._points[index].x = p.x;
+
+        if(!this._points[index].yLocked)
+          this._points[index].y = p.y;
+
+        var thePointInArray = this._points[index];
         this._sortPoints();
-      }
 
+        // the point may have changed its index
+        newIndex = this._points.indexOf( thePointInArray )
+      }
     }
+
+    return newIndex;
   }
 
 

@@ -12,7 +12,7 @@
     <meta  property=og:description content="This is the description" />
     <meta  property=og:image content="http://me.jonathanlurie.fr/images/bg.jpg" />
 
-    <title>The Title</title>
+    <title>CanvasSpliner</title>
 
     <!-- <link rel="stylesheet" href="style.css" type="text/css" /> -->
     <style>
@@ -21,10 +21,58 @@
         margin:0;
         font-family: "Lucida Console", monospace;
         font-size: 15px;
+        overflow-x: hidden;
+      }
+
+      code {
+        background-color: #ffdef5;
+        color: #822666;
+        padding: 0px 4px 0px 4px;
+        border-radius: 5px;
+      }
+
+      li {
+        margin-bottom: 5px;
+        list-style: none;
+      }
+
+      a {
+        text-decoration: none;
+        color: #01abf1;
+      }
+
+      #info {
+        padding-top: 0px;
+        position: absolute;
+        margin: auto;
+        left: 0;
+        right: 0;
+        /*bottom: 0;*/
+        top: 0;
+        width: 800px;
+        height: 500px;
+        text-align: center;
+      }
+
+      #footer {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        margin: 5px;
+        text-align: center;
       }
 
       #parent {
-        margin: 10px;
+        position: absolute;
+        margin: auto;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: 10%;
+        width: 500px;
+        height: 500px;
       }
 
     </style>
@@ -36,19 +84,47 @@
 
   </head>
   <body>
-    <div id="main">hello</div>
+    <div id="info">
+      <h1>CanvasSpliner</h1>
+      <p>
+        <ul>
+          <li>The first point is <code>xLocked</code>, <code>yLocked</code> and <code>safe</code></li>
+          <li>The first point is <code>xLocked</code> and <code>safe</code></li>
+          <li>Double click on a point to remove it (unless it is <code>safe</code>)</li>
+          <li>Double click anywhere else to add a new point</li>
+          <li>Grab a point to move it</li>
+          <li><a href="https://github.com/jonathanlurie/canvasSpliner" target="_blank">Fork it on Github</a></li>
+        </ul>
+
+
+      </p>
+    </div>
+
+    <div id="footer">
+      - MIT License - <a href="http://me.jonathanlurie.fr" target="_blank">Jonathan Lurie</a> -
+    </div>
 
     <div id="parent"></div>
 
     <script>
 
-    var cs = new CanvasSpliner("parent", 300, 300);
-    cs.add( {x:20, y: 40} );
-    cs.add( {x:100, y: 100} );
-    cs.add( {x:150, y: 40} );
-    cs.add( {x:200, y: 100} );
+    var cs = new CanvasSpliner("parent", 500, 500);
 
-    console.log( cs.getValue( 10 ) );
+    /*
+    for each point we have:
+      x: its position on x axis
+      y: its position on y axis
+      xLocked: cannot be dragged along x axis when true
+      yLocked: cannot be dragged along y axis when true
+      safe: cannot be deleted when hovering and pressin "d"
+    */
+
+    cs.add( {x:0, y: 0, xLocked: true, yLocked: true, safe: true} );
+    cs.add( {x:0.1, y: 0.4} );
+    cs.add( {x:0.3, y: 0.45} );
+    cs.add( {x:0.6, y: 0.8} );
+    cs.add( {x:1, y: 0.6, xLocked: true, safe: true} );
+
 
 
 
