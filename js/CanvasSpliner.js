@@ -280,6 +280,7 @@ class CanvasSpliner {
       var xRange = 500;
       for(var x=xSeries[0]; x<xSeries[ xSeries.length - 1]; x++){
         var y = spline(x, xSeries, ySeries);
+        y = y < 0 ? 0.5 : y > this._height ? this._height - 0.5 : y;
         this._ctx.lineTo(x/this._screenRatio, (this._height - y)/this._screenRatio);
 
       }
