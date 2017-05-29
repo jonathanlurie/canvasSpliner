@@ -117,7 +117,7 @@ class PointCollection {
   * @return {Object} point that contains at least "x" and "y" properties.
   */
   getPoint( index ){
-    if(index > 0 && index < this._points.length){
+    if(index >= 0 && index < this._points.length){
       return this._points[index];
     }else{
       return null;

@@ -362,7 +362,7 @@ class PointCollection {
   * @return {Object} point that contains at least "x" and "y" properties.
   */
   getPoint( index ){
-    if(index > 0 && index < this._points.length){
+    if(index >= 0 && index < this._points.length){
       return this._points[index];
     }else{
       return null;
@@ -546,6 +546,8 @@ class CanvasSpliner {
     this._xSeriesInterpolated = new Array(this._width).fill(0);
     this._ySeriesInterpolated = new Array(this._width).fill(0);
     
+    this._gridStep = 0.33;
+    
     // events
     this._onEvents = {
       move: null,
@@ -553,19 +555,35 @@ class CanvasSpliner {
     };
   }
 
+  /**
+  * Define the grid step in unit coodinate. Default: 0.33
+  * @param {Number} 
+  */
+  setGridStep( gs ){
+    if( gs<=0 || gs >=1){
+      this._gridStep = 0;
+    }else{
+      this._gridStep = gs;
+    }
+    
+    this.draw();
+  }
+
 
   /**
   * @param {String} splineType - "natural" or "monotonic" 
   */
   setSplineType( splineType ){
-    this._splineConstructor = monot_spline.CubicSpline;
+    this._splineConstructor = index.CubicSpline;
     if(splineType === "monotonic"){
-      this._splineConstructor = monot_spline.MonotonicCubicSpline;
+      this._splineConstructor = index.MonotonicCubicSpline;
     }
   }
 
+
   /**
-  *
+  * [PRIVATE]
+  * Refresh the position of the pointer we store internally (relative to the canvas)
   */
   _updateMousePosition(evt) {
     var rect = this._canvas.getBoundingClientRect();
@@ -604,16 +622,23 @@ class CanvasSpliner {
     else{
       this._pointGrabedIndex = this._pointCollection.updatePoint( this._pointGrabedIndex, this._mouse );
       this._pointHoveredIndex = this._pointGrabedIndex;
+      
     }
 
     // reduce usless drawing
     if( this._pointHoveredIndex != -1 || this._pointGrabedIndex != -1){ 
       this.draw();
+      
     }
     
     
     // now the buffer is filled (after draw)
     if( this._pointGrabedIndex != -1 ){
+      var grabedPoint = this._pointCollection.getPoint( this._pointGrabedIndex );
+      this._drawCoordinates( 
+        Math.round((grabedPoint.x / this._width)*1000 ) / 1000,
+        Math.round((grabedPoint.y/this._height)*1000 ) / 1000
+      );
       
       if(this._onEvents.move)
         this._onEvents.move( this._xSeriesInterpolated, this._ySeriesInterpolated );
@@ -657,6 +682,10 @@ class CanvasSpliner {
   }
 
   
+  /**
+  * [EVENT] [PRIVATE]
+  * for when we double click on the canvas
+  */
   _onCanvasMouseDbclick(evt){
     console.log("dbclick");
     this._canvas.focus();
@@ -671,6 +700,7 @@ class CanvasSpliner {
     }
 
   }
+
 
   /**
   * [EVENT] [PRIVATE]
@@ -752,11 +782,58 @@ class CanvasSpliner {
 
   draw(){
     this._ctx.clearRect(0, 0, this._width, this._height);
-
+    
+    this._drawGrid();
+    
     this._drawData();
+    
+    
   }
 
 
+  _drawCoordinates(x, y){
+    this._ctx.fillStyle = "rgba(0, 0, 0, 0.3)";
+    this._ctx.font = "14px courier";
+    this._ctx.fillText("x: " + x, 10,20);
+    this._ctx.fillText("y: " + y, 10,35);
+  }
+
+  /**
+  * Draw the background grid
+  */
+  _drawGrid(){
+    var step = this._gridStep;
+    
+    if( step == 0)
+      return;
+    
+    // horitontal grid
+    this._ctx.beginPath();
+    this._ctx.moveTo(0, 0);
+    
+    for(var i=step*this._height; i<=(1-step)*this._height; i += step*this._height){
+      this._ctx.moveTo(0, i + 0.5);
+      this._ctx.lineTo(this._width ,i + 0.5 );
+    }
+    
+    this._ctx.moveTo(0, 0);
+    for(var i=step*this._width; i<=(1-step)*this._width; i += step*this._width){
+      this._ctx.moveTo(i + 0.5, 0);
+      this._ctx.lineTo(i + 0.5 , this._height );
+    }
+    
+    this._ctx.strokeStyle = "rgba(0, 0, 0, 0.1)";
+    this._ctx.lineWidth = 0.5;
+    this._ctx.stroke();
+    this._ctx.closePath();
+  }
+
+
+  /**
+  * Draw the data on the canvas
+  * @param {Boolean} curve - whether or not we draw the curve
+  * @param {Boolean} control - whether or not we draw the control points
+  */
   _drawData( curve = true, control = true){
     var xSeries = this._pointCollection.getXseries();
     var ySeries = this._pointCollection.getYseries();
@@ -776,6 +853,7 @@ class CanvasSpliner {
       this._xSeriesInterpolated.fill(0);
       this._ySeriesInterpolated.fill(0);
       
+      // before the first point (if not at the left of the canvas)
       for(var x=0; x<Math.ceil(xSeries[0]); x++){
         var y = ySeries[0];
         
@@ -788,6 +866,7 @@ class CanvasSpliner {
         this._ctx.lineTo(x/this._screenRatio, (this._height - y)/this._screenRatio);
       }
       
+      // between the first and the last point
       for(var x=Math.ceil(xSeries[0]); x<Math.ceil(xSeries[ xSeries.length - 1]); x++){
         var y = splineInterpolator.interpolate(x);
         
@@ -800,7 +879,7 @@ class CanvasSpliner {
         this._ctx.lineTo(x/this._screenRatio, (this._height - y)/this._screenRatio);
       }
       
-      
+      // after the last point (if not at the right of the canvas)
       for(var x=Math.ceil(xSeries[xSeries.length - 1]); x<this._width; x++){
         var y = ySeries[ySeries.length - 1];
         
@@ -812,7 +891,6 @@ class CanvasSpliner {
         y = y < 0 ? 0.5 : y > this._height ? this._height - 0.5 : y;
         this._ctx.lineTo(x/this._screenRatio, (this._height - y)/this._screenRatio);
       }
-      
 
       this._ctx.strokeStyle = this._curveStyle.idle;
       this._ctx.lineWidth = this._curveThickness.idle / this._screenRatio;
@@ -855,34 +933,49 @@ class CanvasSpliner {
           }
         }
 
-
-
         this._ctx.fill();
         this._ctx.closePath();
       }
     }
-
   }
 
 
+  /**
+  * Get a single interpolated value
+  * @param {Number} x - normalized x (in [0, 1])
+  * @return {number} the normalized interpolated value
+  */
   getValue( x ){
     var xSeries = this._pointCollection.getXseries();
     var ySeries = this._pointCollection.getYseries();
-    var splineInterpolator = new this._splineConstructor(xSeries, ySeries);
-    return splineInterpolator.interpolate( x )
-    //return spline(x, xSeries, ySeries);
+    
+    // before the first x, we return the fist y
+    if( x<= (xSeries[0]/this._width) ){
+      return ySeries[0] / this._height;
+    }else 
+    // after the last x, we return the last y
+    if(x>= (xSeries[xSeries.length-1]/this._width)){
+      return ySeries[ySeries.length-1] / this._height;
+    }
+    // somwhere in the the series, we interpolate
+    else{
+      var splineInterpolator = new this._splineConstructor(xSeries, ySeries);
+      return splineInterpolator.interpolate( x / this._width ) / this._height;
+    }
+    
   }
 
   
+  /**
+  * Define an event
+  * @param {String} eventName - name of the event. "move" and "released". They are both called with the interpolated x and y series
+  */
   on( eventName, callback ){
     this._onEvents[ eventName ] = callback;
   }
 
 
 } /* END of class CanvasSpliner */
-
-
-
 
 
 // Note: we chose not to export PointCollection

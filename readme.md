@@ -35,11 +35,16 @@ var interpolatedVal = cs.getValue( 0.123 )
 - **double click on a point**: deletes it (unless it is `safe`)
 - **double click somewhere else in the canvas**: add a point
 
+## Other methods
+`setGridStep` [0, 1]
+`setSplineType` "natural" or "monotonic" 
+
+## Events
+`.on( "move", function(xInterpolated, yInterpolated){ ... })`
+`.on( "released", function(xInterpolated, yInterpolated){ ... })`
+
 # TODO
-- Add a way to get a large sample of interpolated values
-- add custom callbacks when moving/creating/deleting/mouserelease the points
 - make styling accessible
-- Make a nice bundle
 
 # other infos
 cubic-spline-browser.js is browserified from https://github.com/morganherlocker/cubic-spline using

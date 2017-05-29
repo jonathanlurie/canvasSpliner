@@ -106,6 +106,10 @@
 
     <script>
 
+    // "parent" : the parent DIV ID
+    // 500 : the width in pixel
+    // 500 : the height in pixel
+    // "monotonic" : the type of cubic spline, could be "natural"
     var cs = new pixpipeUI.CanvasSpliner("parent", 500, 500, "monotonic");
 
     /*
@@ -123,19 +127,31 @@
     cs.add( {x:0.6, y: 0.8} );
     cs.add( {x:1, y: 0.6 /*, xLocked: true, safe: true*/} );
 
-    // defining some event (optional)
+    // define the type of interpolation
+    //cs.setSplineType("monotonic")
+    cs.setSplineType("natural")
+
+    // Define the step of the grid at the background
+    cs.setGridStep(0.25);
+
+
+    // defining some events (optional) ************************
+    
+    // called while moving a point
     cs.on("move", function(xInterpolated, yInterpolated){
       console.log("moving...");
       console.log(xInterpolated);
       console.log(yInterpolated);
     })
     
+    // called when releasing the mouse after having clicked on a point
     cs.on("released", function(xInterpolated, yInterpolated){
       console.log("released");
       console.log(xInterpolated);
       console.log(yInterpolated);
     })
 
+    
 
 
 
