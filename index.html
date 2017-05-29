@@ -77,10 +77,8 @@
 
     </style>
 
-    <!--<script src=""></script>-->
-
-    <script src="js/cubic-spline-browser.js"></script>
-    <script src="js/CanvasSpliner.js"></script>
+    <!--<script src="dist/CanvasSpliner.min.js"></script>-->
+    <script src="dist/CanvasSpliner.js"></script>
 
   </head>
   <body>
@@ -108,7 +106,7 @@
 
     <script>
 
-    var cs = new CanvasSpliner("parent", 500, 500);
+    var cs = new pixpipeUI.CanvasSpliner("parent", 500, 500, "monotonic");
 
     /*
     for each point we have:
@@ -119,13 +117,24 @@
       safe: cannot be deleted when hovering and pressin "d"
     */
 
-    cs.add( {x:0, y: 0, xLocked: true, yLocked: true, safe: true} );
+    cs.add( {x:0, y: 0 /*, xLocked: true, yLocked: true, safe: true*/} );
     cs.add( {x:0.1, y: 0.4} );
     cs.add( {x:0.3, y: 0.45} );
     cs.add( {x:0.6, y: 0.8} );
-    cs.add( {x:1, y: 0.6, xLocked: true, safe: true} );
+    cs.add( {x:1, y: 0.6 /*, xLocked: true, safe: true*/} );
 
-
+    // defining some event (optional)
+    cs.on("move", function(xInterpolated, yInterpolated){
+      console.log("moving...");
+      console.log(xInterpolated);
+      console.log(yInterpolated);
+    })
+    
+    cs.on("released", function(xInterpolated, yInterpolated){
+      console.log("released");
+      console.log(xInterpolated);
+      console.log(yInterpolated);
+    })
 
 
 

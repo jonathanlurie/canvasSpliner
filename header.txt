@@ -1,0 +1,6 @@
+/*
+* Author    Jonathan Lurie - http://me.jonathanlurie.fr
+* License   MIT
+* Link      https://github.com/jonathanlurie/canvasSpliner
+* Lab       MCIN - http://mcin.ca/ - Montreal Neurological Institute
+*/
