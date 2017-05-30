@@ -510,14 +510,14 @@ class CanvasSpliner {
     this._ctx.moveTo(0, 0);
 
     for(var i=step*this._height/this._screenRatio; i<this._height/this._screenRatio; i += step*this._height/this._screenRatio){
-      this._ctx.moveTo(0, i + 0.5/this._screenRatio);
-      this._ctx.lineTo(this._width ,i + 0.5/this._screenRatio );
+      this._ctx.moveTo(0, Math.round(i) + 0.5/this._screenRatio);
+      this._ctx.lineTo(this._width ,Math.round(i) + 0.5/this._screenRatio );
     }
 
     this._ctx.moveTo(0, 0);
     for(var i=step*this._width/this._screenRatio; i<this._width/this._screenRatio; i += step*this._width/this._screenRatio){
-      this._ctx.moveTo(i + 0.5/this._screenRatio, 0);
-      this._ctx.lineTo(i + 0.5/this._screenRatio , this._height );
+      this._ctx.moveTo(Math.round(i) + 0.5/this._screenRatio, 0);
+      this._ctx.lineTo(Math.round(i) + 0.5/this._screenRatio , this._height );
     }
 
     this._ctx.strokeStyle = this._gridColor;
