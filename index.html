@@ -6,11 +6,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name=keywords  content="coma, separated, keywords" />
-    <meta name=description  content="This is the description" />
-    <meta  property=og:title content="Page Title" />
-    <meta  property=og:description content="This is the description" />
-    <meta  property=og:image content="http://me.jonathanlurie.fr/images/bg.jpg" />
+    <meta name=keywords  content="spline, widget, javascript" />
+    <meta name=description  content="This example of CanvasSpliner show how to use it" />
+    <meta  property=og:title content="CanvasSpliner examples" />
+    <meta  property=og:description content="This example of CanvasSpliner show how to use it" />
 
     <title>CanvasSpliner</title>
 
@@ -39,6 +38,11 @@
       a {
         text-decoration: none;
         color: #01abf1;
+        transition: all 0.2s;
+      }
+      
+      a:hover {
+        color: #9901f1;
       }
 
       #info {
@@ -49,30 +53,17 @@
         right: 0;
         /*bottom: 0;*/
         top: 0;
-        width: 800px;
+        width: 700px;
         height: 500px;
-        text-align: center;
-      }
-
-      #footer {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        width: 100%;
-        margin: 5px;
         text-align: center;
       }
 
       #parent {
-        position: absolute;
-        margin: auto;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        top: 20%;
         width: 500px;
         height: 500px;
+        margin-top: 50px;
+        margin-left: 100px;
+        margin-right: 100px;
       }
 
     </style>
@@ -90,20 +81,19 @@
           <li>The last point is <code>xLocked</code> and <code>safe</code></li>
           <li>Double click on a point to remove it (unless it is <code>safe</code>)</li>
           <li>Double click anywhere else to add a new point</li>
-          <li>Grab a point to move it</li>
+          <li>Grab a point to move it</li><br>
           <li><a href="./examples/index.html" target="_blank">See a more advanced example</a></li>
           <li><a href="https://github.com/jonathanlurie/canvasSpliner" target="_blank">Fork it on Github</a></li>
         </ul>
-
-
       </p>
+      
+      <div id="parent"></div>
+    
+
+    
     </div>
 
-    <div id="footer">
-      - MIT License - <a href="http://me.jonathanlurie.fr" target="_blank">Jonathan Lurie</a> -
-    </div>
-
-    <div id="parent"></div>
+    
 
     <script>
 
