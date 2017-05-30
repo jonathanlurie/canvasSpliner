@@ -1,0 +1,216 @@
+<!--
+  Using https://github.com/morganherlocker/cubic-spline
+-->
+
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name=keywords  content="coma, separated, keywords" />
+    <meta name=description  content="This is the description" />
+    <meta  property=og:title content="Page Title" />
+    <meta  property=og:description content="This is the description" />
+    <meta  property=og:image content="http://me.jonathanlurie.fr/images/bg.jpg" />
+
+    <title>CanvasSpliner examples</title>
+
+    <!-- <link rel="stylesheet" href="style.css" type="text/css" /> -->
+    <style>
+
+      body {
+        margin:0;
+        font-family: "Lucida Console", monospace;
+        font-size: 15px;
+        /*overflow-x: hidden;*/
+      }
+      
+      code {
+        color: #FFF;
+        font-size: x-large;
+        background-color: #0d92a9;
+        padding: 1px 5px 1px 5px;
+        border-radius: 4px;
+        margin-left: 20px;
+      }
+
+      a {
+        text-decoration: none;
+        color: #0d92a9;
+      }
+
+      #info {
+        position: fixed;
+        top: 0;
+        left: 0;
+        margin: 15px;
+        text-align: center;
+      }
+
+      #all {
+        position: absolute;
+        margin: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: 10%;
+        width: 100%;
+        height: 100%;
+      }
+
+      .splineCell {
+        padding: 15px;
+        width: 550px;
+        height: 650;
+        margin: 10px;
+        /*float: left;*/
+        position: relative;
+        border: #53c5e6;
+        border-style: solid;
+        border-width: 1px;
+      }
+      
+      .splineCell canvas {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+        margin-bottom: 50px;
+      }
+
+      #container {
+        display: grid;
+        grid-template-columns: repeat(2, 0fr);
+        margin-left: calc((100vw - 590px*2)/2);
+      }
+
+    </style>
+
+    <!--<script src="dist/CanvasSpliner.min.js"></script>-->
+    <script src="../dist/CanvasSpliner.js"></script>
+
+  </head>
+  <body>
+    <div id="info">
+      <h2>CanvasSpliner</h2>
+      <p><a href="https://github.com/jonathanlurie/canvasSpliner" target="_blank">Fork it on Github</a></p>
+    </div>
+    
+    
+    <div id="container">
+      
+      <div id="cell_1" class="splineCell" >
+        <code>cs1</code>
+        <ul>
+          <li>Default everything </li>
+          <li>5 points added</li>
+        </ul>
+      </div>
+      
+      <div id="cell_2" class="splineCell">
+        <code>cs2</code>
+        <ul>
+          <li>Monotonic (less curvey)</li>
+          <li>5 points added (same as cs1)</li>
+          <li>Default styling</li>
+        </ul>
+      </div>
+      
+      <div id="cell_3" class="splineCell">
+        <code>cs3</code>
+        <ul>
+          <li>Denser grid (0.1 instead of 1/3)</li>
+          <li>5 points added</li>
+          <li>Default styling</li>
+        </ul>
+      </div>
+      
+      <div id="cell_4" class="splineCell">
+        <code>cs4</code>
+        <ul>
+          <li>4 points added</li>
+          <li>The first and last point are xLocked</li>
+        </ul>
+      </div>
+      
+      <div id="cell_5" class="splineCell">
+        <code>cs5</code>
+        <ul>
+          <li>4 points added</li>
+          <li>The middle point is yLocked</li>
+          <li>The first and last points are "safe" (unremovable)</li>
+        </ul>
+      </div>
+      
+      <div id="cell_6" class="splineCell">
+        <code>cs6</code>
+        <ul>
+          <li>Changed the styling</li>
+          <li>5 points added</li>
+        </ul>
+      </div>
+    
+    </div>
+      
+    <script>
+      
+      var cs1 = new pixpipeUI.CanvasSpliner("cell_1", 500, 500);
+      cs1.add( {x:0, y: 0} );
+      cs1.add( {x:0.1, y: 0.4} );
+      cs1.add( {x:0.3, y: 0.45} );
+      cs1.add( {x:0.6, y: 0.8} );
+      cs1.add( {x:1, y: 0.6} );
+
+      var cs2 = new pixpipeUI.CanvasSpliner("cell_2", 500, 500, "monotonic");
+      cs2.add( {x:0, y: 0} );
+      cs2.add( {x:0.1, y: 0.4} );
+      cs2.add( {x:0.3, y: 0.45} );
+      cs2.add( {x:0.6, y: 0.8} );
+      cs2.add( {x:1, y: 0.6} );
+      
+      var cs3 = new pixpipeUI.CanvasSpliner("cell_3", 500, 500);
+      cs3.setGridStep(0.1);
+      cs3.add( {x:0, y: 0} );
+      cs3.add( {x:0.1, y: 0.4} );
+      cs3.add( {x:0.3, y: 0.45} );
+      cs3.add( {x:0.6, y: 0.8} );
+      cs3.add( {x:1, y: 0.6} );
+      
+      var cs4 = new pixpipeUI.CanvasSpliner("cell_4", 500, 500);
+      cs4.add( {x:0, y: 0, xLocked: true} );
+      cs4.add( {x:0.25, y: 0.15} );
+      cs4.add( {x:0.75, y: 0.85} );
+      cs4.add( {x:1, y: 1,  xLocked: true} );
+      
+      var cs5 = new pixpipeUI.CanvasSpliner("cell_5", 500, 500);
+      cs5.add( {x:0, y: 0, safe: true} );
+      cs5.add( {x:0.5, y: 0.75, yLocked: true} );
+      cs5.add( {x:1, y: 1,  safe: true} );
+
+      var cs6 = new pixpipeUI.CanvasSpliner("cell_6", 500, 500);
+      cs6.add( {x:0, y: 0} );
+      cs6.add( {x:0.1, y: 0.4} );
+      cs6.add( {x:0.3, y: 0.45} );
+      cs6.add( {x:0.6, y: 0.8} );
+      cs6.add( {x:1, y: 0.6} );
+      // styling control points
+      cs6.setControlPointRadius(15);
+      cs6.setControlPointColor("idle", "rgba(0, 120, 250, 0.5)" );
+      cs6.setControlPointColor("hovered", "rgba(100, 20, 220, 1.0)" );
+      cs6.setControlPointColor("grabbed", "rgba(50, 255, 50, 0.5)" );
+      // styling the curve
+      cs6.setCurveColor("idle", "rgba(255, 255, 255, 0.5)" );
+      cs6.setCurveColor("idle", "rgba(255, 0, 255, 1)" );
+      cs6.setCurveThickness(1.5);
+      // styling grid
+      cs6.setGridColor("rgba(255, 255, 0, 0.2)");
+      cs6.setGridStep(0.1);
+      // styling text
+      cs6.setTextColor("rgba(255, 0, 255, 0.8)")
+      // stylng background
+      cs6.setBackgroundColor("rgba(50, 50, 50, 1.0)");
+      cs6.draw();
+    </script>
+
+  <body>
+</html>

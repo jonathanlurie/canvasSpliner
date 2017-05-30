@@ -1,0 +1,1513 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset='utf-8' />
+  <title>  | Documentation</title>
+  <meta name='viewport' content='width=device-width,initial-scale=1'>
+  <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700|Source+Code+Pro:400,500,700' rel='stylesheet' type='text/css'>
+  <link href='assets/bass.css' type='text/css' rel='stylesheet' />
+  <link href='assets/style.css' type='text/css' rel='stylesheet' />
+  <link href='assets/github.css' type='text/css' rel='stylesheet' />
+</head>
+<body class='documentation'>
+  <div class='container'>
+    <div class='clearfix md-mxn2'>
+      <div class='fixed md-show fix-3 overflow-auto max-height-100'>
+        <div class='py1 px2'>
+          <h3 class='mb0 no-anchor'></h3>
+          <div class='mb1'><code></code></div>
+          <input
+            placeholder='Filter'
+            id='filter-input'
+            class='col12 block field'
+            type='text' />
+          <div id='toc'>
+              <a
+                href='#CanvasSpliner'
+                class='block bold'>
+                CanvasSpliner
+              </a>
+                <a
+                  href='#CanvasSpliner._drawCoordinates'
+                  class='regular block'>
+                  #_drawCoordinates
+                </a>
+                <a
+                  href='#CanvasSpliner._drawData'
+                  class='regular block'>
+                  #_drawData
+                </a>
+                <a
+                  href='#CanvasSpliner._drawGrid'
+                  class='regular block'>
+                  #_drawGrid
+                </a>
+                <a
+                  href='#CanvasSpliner._fillBackground'
+                  class='regular block'>
+                  #_fillBackground
+                </a>
+                <a
+                  href='#CanvasSpliner._onCanvasMouseDbclick'
+                  class='regular block'>
+                  #_onCanvasMouseDbclick
+                </a>
+                <a
+                  href='#CanvasSpliner._onCanvasMouseDown'
+                  class='regular block'>
+                  #_onCanvasMouseDown
+                </a>
+                <a
+                  href='#CanvasSpliner._onCanvasMouseEnter'
+                  class='regular block'>
+                  #_onCanvasMouseEnter
+                </a>
+                <a
+                  href='#CanvasSpliner._onCanvasMouseLeave'
+                  class='regular block'>
+                  #_onCanvasMouseLeave
+                </a>
+                <a
+                  href='#CanvasSpliner._onCanvasMouseMove'
+                  class='regular block'>
+                  #_onCanvasMouseMove
+                </a>
+                <a
+                  href='#CanvasSpliner._onCanvasMouseUp'
+                  class='regular block'>
+                  #_onCanvasMouseUp
+                </a>
+                <a
+                  href='#CanvasSpliner._onKeyUp'
+                  class='regular block'>
+                  #_onKeyUp
+                </a>
+                <a
+                  href='#CanvasSpliner._updateMousePosition'
+                  class='regular block'>
+                  #_updateMousePosition
+                </a>
+                <a
+                  href='#CanvasSpliner.add'
+                  class='regular block'>
+                  #add
+                </a>
+                <a
+                  href='#CanvasSpliner.constructor'
+                  class='regular block'>
+                  #constructor
+                </a>
+                <a
+                  href='#CanvasSpliner.draw'
+                  class='regular block'>
+                  #draw
+                </a>
+                <a
+                  href='#CanvasSpliner.getValue'
+                  class='regular block'>
+                  #getValue
+                </a>
+                <a
+                  href='#CanvasSpliner.getXSeriesInterpolated'
+                  class='regular block'>
+                  #getXSeriesInterpolated
+                </a>
+                <a
+                  href='#CanvasSpliner.getYSeriesInterpolated'
+                  class='regular block'>
+                  #getYSeriesInterpolated
+                </a>
+                <a
+                  href='#CanvasSpliner.on'
+                  class='regular block'>
+                  #on
+                </a>
+                <a
+                  href='#CanvasSpliner.remove'
+                  class='regular block'>
+                  #remove
+                </a>
+                <a
+                  href='#CanvasSpliner.setBackgroundColor'
+                  class='regular block'>
+                  #setBackgroundColor
+                </a>
+                <a
+                  href='#CanvasSpliner.setControlPointColor'
+                  class='regular block'>
+                  #setControlPointColor
+                </a>
+                <a
+                  href='#CanvasSpliner.setControlPointRadius'
+                  class='regular block'>
+                  #setControlPointRadius
+                </a>
+                <a
+                  href='#CanvasSpliner.setCurveColor'
+                  class='regular block'>
+                  #setCurveColor
+                </a>
+                <a
+                  href='#CanvasSpliner.setCurveThickness'
+                  class='regular block'>
+                  #setCurveThickness
+                </a>
+                <a
+                  href='#CanvasSpliner.setGridColor'
+                  class='regular block'>
+                  #setGridColor
+                </a>
+                <a
+                  href='#CanvasSpliner.setGridStep'
+                  class='regular block'>
+                  #setGridStep
+                </a>
+                <a
+                  href='#CanvasSpliner.setSplineType'
+                  class='regular block'>
+                  #setSplineType
+                </a>
+                <a
+                  href='#CanvasSpliner.setTextColor'
+                  class='regular block'>
+                  #setTextColor
+                </a>
+              <a
+                href='#PointCollection'
+                class='block bold'>
+                PointCollection
+              </a>
+                <a
+                  href='#PointCollection.add'
+                  class='regular block'>
+                  #add
+                </a>
+                <a
+                  href='#PointCollection.getClosestFrom'
+                  class='regular block'>
+                  #getClosestFrom
+                </a>
+                <a
+                  href='#PointCollection.getNumberOfPoints'
+                  class='regular block'>
+                  #getNumberOfPoints
+                </a>
+                <a
+                  href='#PointCollection.getPoint'
+                  class='regular block'>
+                  #getPoint
+                </a>
+                <a
+                  href='#PointCollection.getXseries'
+                  class='regular block'>
+                  #getXseries
+                </a>
+                <a
+                  href='#PointCollection.getYseries'
+                  class='regular block'>
+                  #getYseries
+                </a>
+                <a
+                  href='#PointCollection.remove'
+                  class='regular block'>
+                  #remove
+                </a>
+                <a
+                  href='#PointCollection.setBoundary'
+                  class='regular block'>
+                  #setBoundary
+                </a>
+                <a
+                  href='#PointCollection.updatePoint'
+                  class='regular block'>
+                  #updatePoint
+                </a>
+          </div>
+        </div>
+      </div>
+      <div class='fix-margin-3'>
+        <div class='px2'>
+<div class='py1'><section class='py2 clearfix'>
+  <h2 id='CanvasSpliner' class='mt0'>
+    CanvasSpliner<span class='gray'>(parentID, width, height, splineType)</span>
+  </h2>
+  <p>events:</p>
+<ul>
+<li>&quot;move&quot; called everytime the pointer moves a point, with argument x and y normalized arrays</li>
+<li>&quot;released&quot; called everytime the pointers is released after moving a point, with argument x and y normalized arrays</li>
+</ul>
+
+    <h4>Parameters</h4>
+    <ul class='suppress-p-margin'>
+        <li> <strong>parentID</strong>
+          :
+          <div class='force-inline'>
+            
+          </div>
+        </li>
+        <li> <strong>width</strong>
+          :
+          <div class='force-inline'>
+            
+          </div>
+        </li>
+        <li> <strong>height</strong>
+          :
+          <div class='force-inline'>
+            
+          </div>
+        </li>
+        <li> <strong>splineType</strong>
+            (default <code>&#x27;natural&#x27;</code>)
+          :
+          <div class='force-inline'>
+            
+          </div>
+        </li>
+    </ul>
+      <h4>Instance members</h4>
+        <div class='collapsible' id='CanvasSpliner._drawCoordinates'>
+          <a href='#CanvasSpliner._drawCoordinates'>
+            <code>
+              #_drawCoordinates<span class='gray'>(x, y)</span>
+            </code>
+            <div class='force-inline'>
+              <p>[PRIVATE]
+Display xy coordinates on the upper left corner</p>
+
+            </div>
+          </a>
+          <div class='collapser border px2'>
+            <section class='py2 clearfix'>
+              <h2 id='CanvasSpliner._drawCoordinates' class='mt0'>
+                _drawCoordinates<span class='gray'>(x, y)</span>
+              </h2>
+              <p>[PRIVATE]
+            Display xy coordinates on the upper left corner</p>
+            
+                <h4>Parameters</h4>
+                <ul class='suppress-p-margin'>
+                    <li> <strong>x</strong>
+                      :
+                      <div class='force-inline'>
+                        
+                      </div>
+                    </li>
+                    <li> <strong>y</strong>
+                      :
+                      <div class='force-inline'>
+                        
+                      </div>
+                    </li>
+                </ul>
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='CanvasSpliner._drawData'>
+          <a href='#CanvasSpliner._drawData'>
+            <code>
+              #_drawData<span class='gray'>(curve, control)</span>
+            </code>
+            <div class='force-inline'>
+              <p>[PRIVATE]
+Draw the data on the canvas</p>
+
+            </div>
+          </a>
+          <div class='collapser border px2'>
+            <section class='py2 clearfix'>
+              <h2 id='CanvasSpliner._drawData' class='mt0'>
+                _drawData<span class='gray'>(curve, control)</span>
+              </h2>
+              <p>[PRIVATE]
+            Draw the data on the canvas</p>
+            
+                <h4>Parameters</h4>
+                <ul class='suppress-p-margin'>
+                    <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></code> <strong>curve</strong>
+                      :
+                      <div class='force-inline'>
+                        <p>whether or not we draw the curve</p>
+            
+                      </div>
+                    </li>
+                    <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean">Boolean</a></code> <strong>control</strong>
+                      :
+                      <div class='force-inline'>
+                        <p>whether or not we draw the control points</p>
+            
+                      </div>
+                    </li>
+                </ul>
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='CanvasSpliner._drawGrid'>
+          <a href='#CanvasSpliner._drawGrid'>
+            <code>
+              #_drawGrid<span class='gray'></span>
+            </code>
+            <div class='force-inline'>
+              <p>[PRIVATE]
+Draw the background grid</p>
+
+            </div>
+          </a>
+          <div class='collapser border px2'>
+            <section class='py2 clearfix'>
+              <h2 id='CanvasSpliner._drawGrid' class='mt0'>
+                _drawGrid<span class='gray'></span>
+              </h2>
+              <p>[PRIVATE]
+            Draw the background grid</p>
+            
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='CanvasSpliner._fillBackground'>
+          <a href='#CanvasSpliner._fillBackground'>
+            <code>
+              #_fillBackground<span class='gray'></span>
+            </code>
+            <div class='force-inline'>
+              <p>[PRIVATE]
+Paint the background with a given color</p>
+
+            </div>
+          </a>
+          <div class='collapser border px2'>
+            <section class='py2 clearfix'>
+              <h2 id='CanvasSpliner._fillBackground' class='mt0'>
+                _fillBackground<span class='gray'></span>
+              </h2>
+              <p>[PRIVATE]
+            Paint the background with a given color</p>
+            
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='CanvasSpliner._onCanvasMouseDbclick'>
+          <a href='#CanvasSpliner._onCanvasMouseDbclick'>
+            <code>
+              #_onCanvasMouseDbclick<span class='gray'>(evt)</span>
+            </code>
+            <div class='force-inline'>
+              <p><a href="">EVENT</a>
+for when we double click on the canvas</p>
+
+            </div>
+          </a>
+          <div class='collapser border px2'>
+            <section class='py2 clearfix'>
+              <h2 id='CanvasSpliner._onCanvasMouseDbclick' class='mt0'>
+                _onCanvasMouseDbclick<span class='gray'>(evt)</span>
+              </h2>
+              <p><a href="">EVENT</a>
+            for when we double click on the canvas</p>
+            
+                <h4>Parameters</h4>
+                <ul class='suppress-p-margin'>
+                    <li> <strong>evt</strong>
+                      :
+                      <div class='force-inline'>
+                        
+                      </div>
+                    </li>
+                </ul>
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='CanvasSpliner._onCanvasMouseDown'>
+          <a href='#CanvasSpliner._onCanvasMouseDown'>
+            <code>
+              #_onCanvasMouseDown<span class='gray'>(evt)</span>
+            </code>
+            <div class='force-inline'>
+              <p><a href="">EVENT</a>
+for when the mouse is clicked over the canvas</p>
+
+            </div>
+          </a>
+          <div class='collapser border px2'>
+            <section class='py2 clearfix'>
+              <h2 id='CanvasSpliner._onCanvasMouseDown' class='mt0'>
+                _onCanvasMouseDown<span class='gray'>(evt)</span>
+              </h2>
+              <p><a href="">EVENT</a>
+            for when the mouse is clicked over the canvas</p>
+            
+                <h4>Parameters</h4>
+                <ul class='suppress-p-margin'>
+                    <li> <strong>evt</strong>
+                      :
+                      <div class='force-inline'>
+                        
+                      </div>
+                    </li>
+                </ul>
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='CanvasSpliner._onCanvasMouseEnter'>
+          <a href='#CanvasSpliner._onCanvasMouseEnter'>
+            <code>
+              #_onCanvasMouseEnter<span class='gray'>(evt)</span>
+            </code>
+            <div class='force-inline'>
+              <p><a href="">EVENT</a>
+The mouse enters the canvas</p>
+
+            </div>
+          </a>
+          <div class='collapser border px2'>
+            <section class='py2 clearfix'>
+              <h2 id='CanvasSpliner._onCanvasMouseEnter' class='mt0'>
+                _onCanvasMouseEnter<span class='gray'>(evt)</span>
+              </h2>
+              <p><a href="">EVENT</a>
+            The mouse enters the canvas</p>
+            
+                <h4>Parameters</h4>
+                <ul class='suppress-p-margin'>
+                    <li> <strong>evt</strong>
+                      :
+                      <div class='force-inline'>
+                        
+                      </div>
+                    </li>
+                </ul>
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='CanvasSpliner._onCanvasMouseLeave'>
+          <a href='#CanvasSpliner._onCanvasMouseLeave'>
+            <code>
+              #_onCanvasMouseLeave<span class='gray'>(evt)</span>
+            </code>
+            <div class='force-inline'>
+              <p><a href="">EVENT</a>
+for when the mouse is leaving the canvas</p>
+
+            </div>
+          </a>
+          <div class='collapser border px2'>
+            <section class='py2 clearfix'>
+              <h2 id='CanvasSpliner._onCanvasMouseLeave' class='mt0'>
+                _onCanvasMouseLeave<span class='gray'>(evt)</span>
+              </h2>
+              <p><a href="">EVENT</a>
+            for when the mouse is leaving the canvas</p>
+            
+                <h4>Parameters</h4>
+                <ul class='suppress-p-margin'>
+                    <li> <strong>evt</strong>
+                      :
+                      <div class='force-inline'>
+                        
+                      </div>
+                    </li>
+                </ul>
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='CanvasSpliner._onCanvasMouseMove'>
+          <a href='#CanvasSpliner._onCanvasMouseMove'>
+            <code>
+              #_onCanvasMouseMove<span class='gray'>(evt)</span>
+            </code>
+            <div class='force-inline'>
+              <p><a href="">EVENT</a>
+for when the mouse is moving over the canvas</p>
+
+            </div>
+          </a>
+          <div class='collapser border px2'>
+            <section class='py2 clearfix'>
+              <h2 id='CanvasSpliner._onCanvasMouseMove' class='mt0'>
+                _onCanvasMouseMove<span class='gray'>(evt)</span>
+              </h2>
+              <p><a href="">EVENT</a>
+            for when the mouse is moving over the canvas</p>
+            
+                <h4>Parameters</h4>
+                <ul class='suppress-p-margin'>
+                    <li> <strong>evt</strong>
+                      :
+                      <div class='force-inline'>
+                        
+                      </div>
+                    </li>
+                </ul>
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='CanvasSpliner._onCanvasMouseUp'>
+          <a href='#CanvasSpliner._onCanvasMouseUp'>
+            <code>
+              #_onCanvasMouseUp<span class='gray'>(evt)</span>
+            </code>
+            <div class='force-inline'>
+              <p><a href="">EVENT</a>
+for when the mouse is released over the canvas</p>
+
+            </div>
+          </a>
+          <div class='collapser border px2'>
+            <section class='py2 clearfix'>
+              <h2 id='CanvasSpliner._onCanvasMouseUp' class='mt0'>
+                _onCanvasMouseUp<span class='gray'>(evt)</span>
+              </h2>
+              <p><a href="">EVENT</a>
+            for when the mouse is released over the canvas</p>
+            
+                <h4>Parameters</h4>
+                <ul class='suppress-p-margin'>
+                    <li> <strong>evt</strong>
+                      :
+                      <div class='force-inline'>
+                        
+                      </div>
+                    </li>
+                </ul>
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='CanvasSpliner._onKeyUp'>
+          <a href='#CanvasSpliner._onKeyUp'>
+            <code>
+              #_onKeyUp<span class='gray'>(evt)</span>
+            </code>
+            <div class='force-inline'>
+              <p><a href="">EVENT</a>
+A keyboard key is released</p>
+
+            </div>
+          </a>
+          <div class='collapser border px2'>
+            <section class='py2 clearfix'>
+              <h2 id='CanvasSpliner._onKeyUp' class='mt0'>
+                _onKeyUp<span class='gray'>(evt)</span>
+              </h2>
+              <p><a href="">EVENT</a>
+            A keyboard key is released</p>
+            
+                <h4>Parameters</h4>
+                <ul class='suppress-p-margin'>
+                    <li> <strong>evt</strong>
+                      :
+                      <div class='force-inline'>
+                        
+                      </div>
+                    </li>
+                </ul>
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='CanvasSpliner._updateMousePosition'>
+          <a href='#CanvasSpliner._updateMousePosition'>
+            <code>
+              #_updateMousePosition<span class='gray'>(evt)</span>
+            </code>
+            <div class='force-inline'>
+              <p>[PRIVATE]
+Refresh the position of the pointer we store internally (relative to the canvas)</p>
+
+            </div>
+          </a>
+          <div class='collapser border px2'>
+            <section class='py2 clearfix'>
+              <h2 id='CanvasSpliner._updateMousePosition' class='mt0'>
+                _updateMousePosition<span class='gray'>(evt)</span>
+              </h2>
+              <p>[PRIVATE]
+            Refresh the position of the pointer we store internally (relative to the canvas)</p>
+            
+                <h4>Parameters</h4>
+                <ul class='suppress-p-margin'>
+                    <li> <strong>evt</strong>
+                      :
+                      <div class='force-inline'>
+                        
+                      </div>
+                    </li>
+                </ul>
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='CanvasSpliner.add'>
+          <a href='#CanvasSpliner.add'>
+            <code>
+              #add<span class='gray'>(pt, draw)</span>
+            </code>
+            <div class='force-inline'>
+              <p>Add a point to the collection</p>
+
+            </div>
+          </a>
+          <div class='collapser border px2'>
+            <section class='py2 clearfix'>
+              <h2 id='CanvasSpliner.add' class='mt0'>
+                add<span class='gray'>(pt, draw)</span>
+              </h2>
+              <p>Add a point to the collection</p>
+            
+                <h4>Parameters</h4>
+                <ul class='suppress-p-margin'>
+                    <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></code> <strong>pt</strong>
+                      :
+                      <div class='force-inline'>
+                        <p>of type {x: Number, y: Number} and optionnally the boolean properties &quot;xLocked&quot; and &quot;yLocked&quot;. x and y must be in [0, 1]</p>
+            
+                      </div>
+                    </li>
+                    <li> <strong>draw</strong>
+                        (default <code>true</code>)
+                      :
+                      <div class='force-inline'>
+                        
+                      </div>
+                    </li>
+                </ul>
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='CanvasSpliner.constructor'>
+          <a href='#CanvasSpliner.constructor'>
+            <code>
+              #constructor<span class='gray'>(parentID, width, height, splineType)</span>
+            </code>
+            <div class='force-inline'>
+              
+            </div>
+          </a>
+          <div class='collapser border px2'>
+            <section class='py2 clearfix'>
+              <h2 id='CanvasSpliner.constructor' class='mt0'>
+                constructor<span class='gray'>(parentID, width, height, splineType)</span>
+              </h2>
+              
+                <h4>Parameters</h4>
+                <ul class='suppress-p-margin'>
+                    <li> <strong>parentID</strong>
+                      :
+                      <div class='force-inline'>
+                        
+                      </div>
+                    </li>
+                    <li> <strong>width</strong>
+                      :
+                      <div class='force-inline'>
+                        
+                      </div>
+                    </li>
+                    <li> <strong>height</strong>
+                      :
+                      <div class='force-inline'>
+                        
+                      </div>
+                    </li>
+                    <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></code> <strong>splineType</strong>
+                      :
+                      <div class='force-inline'>
+                        <p>&quot;natural&quot; or &quot;monotonic&quot;</p>
+            
+                      </div>
+                    </li>
+                </ul>
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='CanvasSpliner.draw'>
+          <a href='#CanvasSpliner.draw'>
+            <code>
+              #draw<span class='gray'></span>
+            </code>
+            <div class='force-inline'>
+              <p>Draw the whole canvas</p>
+
+            </div>
+          </a>
+          <div class='collapser border px2'>
+            <section class='py2 clearfix'>
+              <h2 id='CanvasSpliner.draw' class='mt0'>
+                draw<span class='gray'></span>
+              </h2>
+              <p>Draw the whole canvas</p>
+            
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='CanvasSpliner.getValue'>
+          <a href='#CanvasSpliner.getValue'>
+            <code>
+              #getValue<span class='gray'>(x)</span>
+            </code>
+            <div class='force-inline'>
+              <p>Get a single interpolated value</p>
+
+            </div>
+          </a>
+          <div class='collapser border px2'>
+            <section class='py2 clearfix'>
+              <h2 id='CanvasSpliner.getValue' class='mt0'>
+                getValue<span class='gray'>(x)</span>
+              </h2>
+              <p>Get a single interpolated value</p>
+            
+                <h4>Parameters</h4>
+                <ul class='suppress-p-margin'>
+                    <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code> <strong>x</strong>
+                      :
+                      <div class='force-inline'>
+                        <p>normalized x (in [0, 1])</p>
+            
+                      </div>
+                    </li>
+                </ul>
+                  <h4>Returns</h4>
+                  <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">number</a></code></code>
+                  :
+                  <div class='force-inline'>
+                    <p>the normalized interpolated value</p>
+            
+                  </div>
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='CanvasSpliner.getXSeriesInterpolated'>
+          <a href='#CanvasSpliner.getXSeriesInterpolated'>
+            <code>
+              #getXSeriesInterpolated<span class='gray'></span>
+            </code>
+            <div class='force-inline'>
+              <p>Get an array of all the x coordinates that CanvasSpliner computed an interpolation of.
+See getYSeriesInterpolated to get the corresponding interpolated values.</p>
+
+            </div>
+          </a>
+          <div class='collapser border px2'>
+            <section class='py2 clearfix'>
+              <h2 id='CanvasSpliner.getXSeriesInterpolated' class='mt0'>
+                getXSeriesInterpolated<span class='gray'></span>
+              </h2>
+              <p>Get an array of all the x coordinates that CanvasSpliner computed an interpolation of.
+            See getYSeriesInterpolated to get the corresponding interpolated values.</p>
+            
+                  <h4>Returns</h4>
+                  <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code></code>
+                  :
+                  <div class='force-inline'>
+                    <p>of x values with regular interval in [0, 1]</p>
+            
+                  </div>
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='CanvasSpliner.getYSeriesInterpolated'>
+          <a href='#CanvasSpliner.getYSeriesInterpolated'>
+            <code>
+              #getYSeriesInterpolated<span class='gray'></span>
+            </code>
+            <div class='force-inline'>
+              <p>Get all the interpolated values for each x given by getXSeriesInterpolated.</p>
+
+            </div>
+          </a>
+          <div class='collapser border px2'>
+            <section class='py2 clearfix'>
+              <h2 id='CanvasSpliner.getYSeriesInterpolated' class='mt0'>
+                getYSeriesInterpolated<span class='gray'></span>
+              </h2>
+              <p>Get all the interpolated values for each x given by getXSeriesInterpolated.</p>
+            
+                  <h4>Returns</h4>
+                  <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code></code>
+                  :
+                  <div class='force-inline'>
+                    <p>of interpolated y</p>
+            
+                  </div>
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='CanvasSpliner.on'>
+          <a href='#CanvasSpliner.on'>
+            <code>
+              #on<span class='gray'>(eventName, callback)</span>
+            </code>
+            <div class='force-inline'>
+              <p>Define an event</p>
+
+            </div>
+          </a>
+          <div class='collapser border px2'>
+            <section class='py2 clearfix'>
+              <h2 id='CanvasSpliner.on' class='mt0'>
+                on<span class='gray'>(eventName, callback)</span>
+              </h2>
+              <p>Define an event</p>
+            
+                <h4>Parameters</h4>
+                <ul class='suppress-p-margin'>
+                    <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></code> <strong>eventName</strong>
+                      :
+                      <div class='force-inline'>
+                        <p>name of the event. &quot;move&quot; and &quot;released&quot;. They are both called with the interpolated x and y series</p>
+            
+                      </div>
+                    </li>
+                    <li> <strong>callback</strong>
+                      :
+                      <div class='force-inline'>
+                        
+                      </div>
+                    </li>
+                </ul>
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='CanvasSpliner.remove'>
+          <a href='#CanvasSpliner.remove'>
+            <code>
+              #remove<span class='gray'>(index)</span>
+            </code>
+            <div class='force-inline'>
+              <p>Remove a point using its index</p>
+
+            </div>
+          </a>
+          <div class='collapser border px2'>
+            <section class='py2 clearfix'>
+              <h2 id='CanvasSpliner.remove' class='mt0'>
+                remove<span class='gray'>(index)</span>
+              </h2>
+              <p>Remove a point using its index</p>
+            
+                <h4>Parameters</h4>
+                <ul class='suppress-p-margin'>
+                    <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code> <strong>index</strong>
+                      :
+                      <div class='force-inline'>
+                        <p>index of the point to remove (from left to right, starting at 0)</p>
+            
+                      </div>
+                    </li>
+                </ul>
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='CanvasSpliner.setBackgroundColor'>
+          <a href='#CanvasSpliner.setBackgroundColor'>
+            <code>
+              #setBackgroundColor<span class='gray'>(color)</span>
+            </code>
+            <div class='force-inline'>
+              <p>Define the canvas background color</p>
+
+            </div>
+          </a>
+          <div class='collapser border px2'>
+            <section class='py2 clearfix'>
+              <h2 id='CanvasSpliner.setBackgroundColor' class='mt0'>
+                setBackgroundColor<span class='gray'>(color)</span>
+              </h2>
+              <p>Define the canvas background color</p>
+            
+                <h4>Parameters</h4>
+                <ul class='suppress-p-margin'>
+                    <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></code> <strong>color</strong>
+                      :
+                      <div class='force-inline'>
+                        <p>must be css style best is of form &quot;rgba(244, 66, 167, 0.5)&quot;
+            Can allso be null/0/false to leave a blank background</p>
+            
+                      </div>
+                    </li>
+                </ul>
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='CanvasSpliner.setControlPointColor'>
+          <a href='#CanvasSpliner.setControlPointColor'>
+            <code>
+              #setControlPointColor<span class='gray'>(state, color)</span>
+            </code>
+            <div class='force-inline'>
+              <p>Set the color of the control point in a specific state</p>
+
+            </div>
+          </a>
+          <div class='collapser border px2'>
+            <section class='py2 clearfix'>
+              <h2 id='CanvasSpliner.setControlPointColor' class='mt0'>
+                setControlPointColor<span class='gray'>(state, color)</span>
+              </h2>
+              <p>Set the color of the control point in a specific state</p>
+            
+                <h4>Parameters</h4>
+                <ul class='suppress-p-margin'>
+                    <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></code> <strong>state</strong>
+                      :
+                      <div class='force-inline'>
+                        <p>must be one of: &quot;idle&quot;, &quot;hovered&quot; or &quot;grabbed&quot;</p>
+            
+                      </div>
+                    </li>
+                    <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></code> <strong>color</strong>
+                      :
+                      <div class='force-inline'>
+                        <p>must be css style best is of form &quot;rgba(244, 66, 167, 0.5)&quot;</p>
+            
+                      </div>
+                    </li>
+                </ul>
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='CanvasSpliner.setControlPointRadius'>
+          <a href='#CanvasSpliner.setControlPointRadius'>
+            <code>
+              #setControlPointRadius<span class='gray'>(r)</span>
+            </code>
+            <div class='force-inline'>
+              <p>Change the radius of the control points</p>
+
+            </div>
+          </a>
+          <div class='collapser border px2'>
+            <section class='py2 clearfix'>
+              <h2 id='CanvasSpliner.setControlPointRadius' class='mt0'>
+                setControlPointRadius<span class='gray'>(r)</span>
+              </h2>
+              <p>Change the radius of the control points</p>
+            
+                <h4>Parameters</h4>
+                <ul class='suppress-p-margin'>
+                    <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code> <strong>r</strong>
+                      :
+                      <div class='force-inline'>
+                        <p>the radius in pixel</p>
+            
+                      </div>
+                    </li>
+                </ul>
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='CanvasSpliner.setCurveColor'>
+          <a href='#CanvasSpliner.setCurveColor'>
+            <code>
+              #setCurveColor<span class='gray'>(state, color)</span>
+            </code>
+            <div class='force-inline'>
+              <p>Set the color of the curve in a specific state</p>
+
+            </div>
+          </a>
+          <div class='collapser border px2'>
+            <section class='py2 clearfix'>
+              <h2 id='CanvasSpliner.setCurveColor' class='mt0'>
+                setCurveColor<span class='gray'>(state, color)</span>
+              </h2>
+              <p>Set the color of the curve in a specific state</p>
+            
+                <h4>Parameters</h4>
+                <ul class='suppress-p-margin'>
+                    <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></code> <strong>state</strong>
+                      :
+                      <div class='force-inline'>
+                        <p>must be one of: &quot;idle&quot; or &quot;moving&quot;</p>
+            
+                      </div>
+                    </li>
+                    <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></code> <strong>color</strong>
+                      :
+                      <div class='force-inline'>
+                        <p>must be css style best is of form &quot;rgba(244, 66, 167, 0.5)&quot;</p>
+            
+                      </div>
+                    </li>
+                </ul>
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='CanvasSpliner.setCurveThickness'>
+          <a href='#CanvasSpliner.setCurveThickness'>
+            <code>
+              #setCurveThickness<span class='gray'>(t)</span>
+            </code>
+            <div class='force-inline'>
+              <p>Define the thickness of the curve</p>
+
+            </div>
+          </a>
+          <div class='collapser border px2'>
+            <section class='py2 clearfix'>
+              <h2 id='CanvasSpliner.setCurveThickness' class='mt0'>
+                setCurveThickness<span class='gray'>(t)</span>
+              </h2>
+              <p>Define the thickness of the curve</p>
+            
+                <h4>Parameters</h4>
+                <ul class='suppress-p-margin'>
+                    <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code> <strong>t</strong>
+                      :
+                      <div class='force-inline'>
+                        <p>thickness in pixel</p>
+            
+                      </div>
+                    </li>
+                </ul>
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='CanvasSpliner.setGridColor'>
+          <a href='#CanvasSpliner.setGridColor'>
+            <code>
+              #setGridColor<span class='gray'>(color)</span>
+            </code>
+            <div class='force-inline'>
+              <p>Set the color of the grid</p>
+
+            </div>
+          </a>
+          <div class='collapser border px2'>
+            <section class='py2 clearfix'>
+              <h2 id='CanvasSpliner.setGridColor' class='mt0'>
+                setGridColor<span class='gray'>(color)</span>
+              </h2>
+              <p>Set the color of the grid</p>
+            
+                <h4>Parameters</h4>
+                <ul class='suppress-p-margin'>
+                    <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></code> <strong>color</strong>
+                      :
+                      <div class='force-inline'>
+                        <p>must be css style best is of form &quot;rgba(244, 66, 167, 0.5)&quot;</p>
+            
+                      </div>
+                    </li>
+                </ul>
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='CanvasSpliner.setGridStep'>
+          <a href='#CanvasSpliner.setGridStep'>
+            <code>
+              #setGridStep<span class='gray'>(Number, gs)</span>
+            </code>
+            <div class='force-inline'>
+              <p>Define the grid step in unit coodinate. Default: 0.33</p>
+
+            </div>
+          </a>
+          <div class='collapser border px2'>
+            <section class='py2 clearfix'>
+              <h2 id='CanvasSpliner.setGridStep' class='mt0'>
+                setGridStep<span class='gray'>(Number, gs)</span>
+              </h2>
+              <p>Define the grid step in unit coodinate. Default: 0.33</p>
+            
+                <h4>Parameters</h4>
+                <ul class='suppress-p-margin'>
+                    <li> <strong>Number</strong>
+                      :
+                      <div class='force-inline'>
+                        
+                      </div>
+                    </li>
+                    <li> <strong>gs</strong>
+                      :
+                      <div class='force-inline'>
+                        
+                      </div>
+                    </li>
+                </ul>
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='CanvasSpliner.setSplineType'>
+          <a href='#CanvasSpliner.setSplineType'>
+            <code>
+              #setSplineType<span class='gray'>(splineType)</span>
+            </code>
+            <div class='force-inline'>
+              
+            </div>
+          </a>
+          <div class='collapser border px2'>
+            <section class='py2 clearfix'>
+              <h2 id='CanvasSpliner.setSplineType' class='mt0'>
+                setSplineType<span class='gray'>(splineType)</span>
+              </h2>
+              
+                <h4>Parameters</h4>
+                <ul class='suppress-p-margin'>
+                    <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></code> <strong>splineType</strong>
+                      :
+                      <div class='force-inline'>
+                        <p>&quot;natural&quot; or &quot;monotonic&quot;</p>
+            
+                      </div>
+                    </li>
+                </ul>
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='CanvasSpliner.setTextColor'>
+          <a href='#CanvasSpliner.setTextColor'>
+            <code>
+              #setTextColor<span class='gray'>(color)</span>
+            </code>
+            <div class='force-inline'>
+              <p>Set the color of the text</p>
+
+            </div>
+          </a>
+          <div class='collapser border px2'>
+            <section class='py2 clearfix'>
+              <h2 id='CanvasSpliner.setTextColor' class='mt0'>
+                setTextColor<span class='gray'>(color)</span>
+              </h2>
+              <p>Set the color of the text</p>
+            
+                <h4>Parameters</h4>
+                <ul class='suppress-p-margin'>
+                    <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></code> <strong>color</strong>
+                      :
+                      <div class='force-inline'>
+                        <p>must be css style best is of form &quot;rgba(244, 66, 167, 0.5)&quot;</p>
+            
+                      </div>
+                    </li>
+                </ul>
+            </section>
+          </div>
+        </div>
+</section>
+</div><div class='py1'><section class='py2 clearfix'>
+  <h2 id='PointCollection' class='mt0'>
+    PointCollection<span class='gray'></span>
+  </h2>
+  
+      <h4>Instance members</h4>
+        <div class='collapsible' id='PointCollection.add'>
+          <a href='#PointCollection.add'>
+            <code>
+              #add<span class='gray'>(p)</span>
+            </code>
+            <div class='force-inline'>
+              
+            </div>
+          </a>
+          <div class='collapser border px2'>
+            <section class='py2 clearfix'>
+              <h2 id='PointCollection.add' class='mt0'>
+                add<span class='gray'>(p)</span>
+              </h2>
+              
+                <h4>Parameters</h4>
+                <ul class='suppress-p-margin'>
+                    <li> <strong>p</strong>
+                      :
+                      <div class='force-inline'>
+                        
+                      </div>
+                    </li>
+                </ul>
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='PointCollection.getClosestFrom'>
+          <a href='#PointCollection.getClosestFrom'>
+            <code>
+              #getClosestFrom<span class='gray'>(p)</span>
+            </code>
+            <div class='force-inline'>
+              <p>Get the index within the collection of the point that is the closest from
+the one given in argument. Returns also the euclidiant distance to this point.</p>
+
+            </div>
+          </a>
+          <div class='collapser border px2'>
+            <section class='py2 clearfix'>
+              <h2 id='PointCollection.getClosestFrom' class='mt0'>
+                getClosestFrom<span class='gray'>(p)</span>
+              </h2>
+              <p>Get the index within the collection of the point that is the closest from
+            the one given in argument. Returns also the euclidiant distance to this point.</p>
+            
+                <h4>Parameters</h4>
+                <ul class='suppress-p-margin'>
+                    <li> <strong>p</strong>
+                      :
+                      <div class='force-inline'>
+                        
+                      </div>
+                    </li>
+                </ul>
+                  <h4>Returns</h4>
+                  <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></code></code>
+                  :
+                  <div class='force-inline'>
+                    <p>like {index: Number, distance: Number}, or null if there is
+            no point in this collection.</p>
+            
+                  </div>
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='PointCollection.getNumberOfPoints'>
+          <a href='#PointCollection.getNumberOfPoints'>
+            <code>
+              #getNumberOfPoints<span class='gray'></span>
+            </code>
+            <div class='force-inline'>
+              <p>Get the number of points in the collection</p>
+
+            </div>
+          </a>
+          <div class='collapser border px2'>
+            <section class='py2 clearfix'>
+              <h2 id='PointCollection.getNumberOfPoints' class='mt0'>
+                getNumberOfPoints<span class='gray'></span>
+              </h2>
+              <p>Get the number of points in the collection</p>
+            
+                  <h4>Returns</h4>
+                  <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code></code>
+                  :
+                  <div class='force-inline'>
+                    <p>the number of points</p>
+            
+                  </div>
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='PointCollection.getPoint'>
+          <a href='#PointCollection.getPoint'>
+            <code>
+              #getPoint<span class='gray'>(index)</span>
+            </code>
+            <div class='force-inline'>
+              <p>Gets the point at such index</p>
+
+            </div>
+          </a>
+          <div class='collapser border px2'>
+            <section class='py2 clearfix'>
+              <h2 id='PointCollection.getPoint' class='mt0'>
+                getPoint<span class='gray'>(index)</span>
+              </h2>
+              <p>Gets the point at such index</p>
+            
+                <h4>Parameters</h4>
+                <ul class='suppress-p-margin'>
+                    <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code> <strong>index</strong>
+                      :
+                      <div class='force-inline'>
+                        <p>the index of the point we want</p>
+            
+                      </div>
+                    </li>
+                </ul>
+                  <h4>Returns</h4>
+                  <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></code></code>
+                  :
+                  <div class='force-inline'>
+                    <p>point that contains at least &quot;x&quot; and &quot;y&quot; properties.</p>
+            
+                  </div>
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='PointCollection.getXseries'>
+          <a href='#PointCollection.getXseries'>
+            <code>
+              #getXseries<span class='gray'></span>
+            </code>
+            <div class='force-inline'>
+              <p>Get all &quot;x&quot; coordinates of the collection as an array of Number</p>
+
+            </div>
+          </a>
+          <div class='collapser border px2'>
+            <section class='py2 clearfix'>
+              <h2 id='PointCollection.getXseries' class='mt0'>
+                getXseries<span class='gray'></span>
+              </h2>
+              <p>Get all &quot;x&quot; coordinates of the collection as an array of Number</p>
+            
+                  <h4>Returns</h4>
+                  <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code></code>
+                  :
+                  <div class='force-inline'>
+                    <p>of Number</p>
+            
+                  </div>
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='PointCollection.getYseries'>
+          <a href='#PointCollection.getYseries'>
+            <code>
+              #getYseries<span class='gray'></span>
+            </code>
+            <div class='force-inline'>
+              <p>Get all &quot;y&quot; coordinates of the collection as an array of Number</p>
+
+            </div>
+          </a>
+          <div class='collapser border px2'>
+            <section class='py2 clearfix'>
+              <h2 id='PointCollection.getYseries' class='mt0'>
+                getYseries<span class='gray'></span>
+              </h2>
+              <p>Get all &quot;y&quot; coordinates of the collection as an array of Number</p>
+            
+                  <h4>Returns</h4>
+                  <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array">Array</a></code></code>
+                  :
+                  <div class='force-inline'>
+                    <p>of Number</p>
+            
+                  </div>
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='PointCollection.remove'>
+          <a href='#PointCollection.remove'>
+            <code>
+              #remove<span class='gray'>(index)</span>
+            </code>
+            <div class='force-inline'>
+              <p>Remove the points at the given index.</p>
+
+            </div>
+          </a>
+          <div class='collapser border px2'>
+            <section class='py2 clearfix'>
+              <h2 id='PointCollection.remove' class='mt0'>
+                remove<span class='gray'>(index)</span>
+              </h2>
+              <p>Remove the points at the given index.</p>
+            
+                <h4>Parameters</h4>
+                <ul class='suppress-p-margin'>
+                    <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code> <strong>index</strong>
+                      :
+                      <div class='force-inline'>
+                        <p>index of the point to remove</p>
+            
+                      </div>
+                    </li>
+                </ul>
+                  <h4>Returns</h4>
+                  <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></code></code>
+                  :
+                  <div class='force-inline'>
+                    <p>the point that was just removed or null if out of bound</p>
+            
+                  </div>
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='PointCollection.setBoundary'>
+          <a href='#PointCollection.setBoundary'>
+            <code>
+              #setBoundary<span class='gray'>(bound, axis, value)</span>
+            </code>
+            <div class='force-inline'>
+              <p>Define the acceptable min and max bot both axis.</p>
+
+            </div>
+          </a>
+          <div class='collapser border px2'>
+            <section class='py2 clearfix'>
+              <h2 id='PointCollection.setBoundary' class='mt0'>
+                setBoundary<span class='gray'>(bound, axis, value)</span>
+              </h2>
+              <p>Define the acceptable min and max bot both axis.</p>
+            
+                <h4>Parameters</h4>
+                <ul class='suppress-p-margin'>
+                    <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></code> <strong>bound</strong>
+                      :
+                      <div class='force-inline'>
+                        <p>can be &quot;min&quot; or &quot;max&quot;</p>
+            
+                      </div>
+                    </li>
+                    <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></code> <strong>axis</strong>
+                      :
+                      <div class='force-inline'>
+                        <p>can be &quot;x&quot; or &quot;y&quot;</p>
+            
+                      </div>
+                    </li>
+                    <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code> <strong>value</strong>
+                      :
+                      <div class='force-inline'>
+                        <p>a number
+            Note that minimum boudaries are inclusive while max are exclusive</p>
+            
+                      </div>
+                    </li>
+                </ul>
+            </section>
+          </div>
+        </div>
+        <div class='collapsible' id='PointCollection.updatePoint'>
+          <a href='#PointCollection.updatePoint'>
+            <code>
+              #updatePoint<span class='gray'>(index, p)</span>
+            </code>
+            <div class='force-inline'>
+              <p>Update the posiiton of an existing point</p>
+
+            </div>
+          </a>
+          <div class='collapser border px2'>
+            <section class='py2 clearfix'>
+              <h2 id='PointCollection.updatePoint' class='mt0'>
+                updatePoint<span class='gray'>(index, p)</span>
+              </h2>
+              <p>Update the posiiton of an existing point</p>
+            
+                <h4>Parameters</h4>
+                <ul class='suppress-p-margin'>
+                    <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code> <strong>index</strong>
+                      :
+                      <div class='force-inline'>
+                        <p>index of the existing point to update</p>
+            
+                      </div>
+                    </li>
+                    <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></code> <strong>p</strong>
+                      :
+                      <div class='force-inline'>
+                        <p>point that has coord we want to use as new coord. x and y values will be copied, no pointer association</p>
+            
+                      </div>
+                    </li>
+                </ul>
+                  <h4>Returns</h4>
+                  <code><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code></code>
+                  :
+                  <div class='force-inline'>
+                    <p>new index, the changed point may have changed its index among the x-ordered list</p>
+            
+                  </div>
+            </section>
+          </div>
+        </div>
+</section>
+</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src='assets/anchor.js'></script>
+  <script src='assets/site.js'></script>
+</body>
+</html>

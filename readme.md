@@ -117,7 +117,7 @@ cs.on( "released", function(xInterpolated, yInterpolated){
 ```
 
 ## Styling
-If you want to adapt the styling of CanvasSpliner to match you own project, you can.
+If you want to adapt the styling of CanvasSpliner to match you own project, you can. After changing the styling, be sure you call the method `cs.draw()` to refresh!
 - Change the size of the control point with a number of pixels:
 ```javascript
 cs.setControlPointRadius( 6 )

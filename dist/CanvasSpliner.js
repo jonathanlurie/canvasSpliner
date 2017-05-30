@@ -551,13 +551,15 @@ class CanvasSpliner {
     this._xSeriesInterpolated = new Array(this._width).fill(0);
     this._ySeriesInterpolated = new Array(this._width).fill(0);
 
-    this._gridStep = 0.33;
+    this._gridStep = 1/3;
 
     // events
     this._onEvents = {
       move: null,
       released: null
     };
+    
+    this.draw();
   }
 
   
@@ -662,9 +664,10 @@ class CanvasSpliner {
   * @param {String} splineType - "natural" or "monotonic"
   */
   setSplineType( splineType ){
-    this._splineConstructor = index.CubicSpline;
     if(splineType === "monotonic"){
       this._splineConstructor = index.MonotonicCubicSpline;
+    }else{
+      this._splineConstructor = index.CubicSpline;
     }
   }
 
@@ -918,7 +921,7 @@ class CanvasSpliner {
   */
   _drawCoordinates(x, y){
     var textSize = 14 / this._screenRatio;
-    this._ctx.fillStyle = this._gridColor;
+    this._ctx.fillStyle = this._textColor;
     this._ctx.font = textSize + "px courier";
     this._ctx.fillText("x: " + x, 10/this._screenRatio, 20/this._screenRatio);
     this._ctx.fillText("y: " + y, 10/this._screenRatio, 35/this._screenRatio);
@@ -950,7 +953,7 @@ class CanvasSpliner {
       this._ctx.lineTo(i + 0.5/this._screenRatio , this._height );
     }
 
-    this._ctx.strokeStyle = this._textColor;
+    this._ctx.strokeStyle = this._gridColor;
     this._ctx.lineWidth = 0.5;
     this._ctx.stroke();
     this._ctx.closePath();
