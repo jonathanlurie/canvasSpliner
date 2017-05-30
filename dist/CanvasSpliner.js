@@ -463,32 +463,37 @@ class CanvasSpliner {
     };
 
     // radius of the control points
-    this._controlPointRadius = {
-      idle: 6,
-      grabed: 12
-    };
+    this._controlPointRadius = 8;
 
     // color of the control points
-    this._controlPointStyle = {
-      idle: "rgba(255, 0, 0, 0.5)",
+    this._controlPointColor = {
+      idle: "rgba(244, 66, 167, 0.5)",
       hovered: "rgba(0, 0, 255, 0.5)",
-      grabed: "rgba(0, 200, 0, 0.5)"
+      grabbed: "rgba(0, 200, 0, 0.5)"
     };
 
     // style of the curve
-    this._curveStyle = {
+    this._curveColor = {
       idle: 'rgba(0, 128, 255, 1)',
       moving: 'rgba(255, 128, 0, 1)'
     };
+    
+    // color of the grid
+    this._gridColor = "rgba(0, 0, 0, 0.3)";
+    
+    // color of the text
+    this._textColor = "rgba(0, 0, 0, 0.1)";
 
-    this._curveThickness = {
-      idle: 1,
-      moving: 2
-    };
+    // thickness of the curve
+    this._curveThickness = 1;
+    
+    // color of the background
+    this._backgroundColor = false;
+    
 
     this._mouse = null;
-    this._pointHoveredIndex = -1; // index of the grabed point. -1 if none
-    this._pointGrabedIndex = -1;
+    this._pointHoveredIndex = -1; // index of the grabbed point. -1 if none
+    this._pointGrabbedIndex = -1;
     this._mouseDown = false; // says if the mouse is maintained clicked
 
     this._canvas = null;
@@ -555,6 +560,61 @@ class CanvasSpliner {
     };
   }
 
+  
+  /**
+  * Get an array of all the x coordinates that CanvasSpliner computed an interpolation of.
+  * See getYSeriesInterpolated to get the corresponding interpolated values.
+  * @return {Array} of x values with regular interval in [0, 1]
+  */
+  getXSeriesInterpolated(){
+    return this._xSeriesInterpolated;
+  }
+  
+  
+  /**
+  * Get all the interpolated values for each x given by getXSeriesInterpolated.
+  * @return {Array} of interpolated y
+  */
+  getYSeriesInterpolated(){
+    return this._ySeriesInterpolated;
+  }
+  
+  /**
+  * Change the radius of the control points
+  * @param {Number} r - the radius in pixel
+  */
+  setControlPointRadius( r ){
+    this._controlPointRadius = r;
+  }
+  
+  
+  /**
+  * Set the color of the control point in a specific state
+  * @param {String} state - must be one of: "idle", "hovered" or "grabbed"
+  * @param {String} color - must be css style best is of form "rgba(244, 66, 167, 0.5)"
+  */
+  setControlPointColor( state, color ){
+    this._controlPointColor[ state ] = color;
+  }
+  
+  /**
+  * Set the color of the curve in a specific state
+  * @param {String} state - must be one of: "idle" or "moving"
+  * @param {String} color - must be css style best is of form "rgba(244, 66, 167, 0.5)"
+  */
+  setCurveColor( state, color ){
+    this._curveColor[ state ] = color;
+  }
+
+
+  /**
+  * Set the color of the grid
+  * @param {String} color - must be css style best is of form "rgba(244, 66, 167, 0.5)"
+  */
+  setGridColor( color ){
+    this._gridColor = color;
+  }
+
   /**
   * Define the grid step in unit coodinate. Default: 0.33
   * @param {Number}
@@ -568,7 +628,35 @@ class CanvasSpliner {
 
     this.draw();
   }
+  
+  
+  /**
+  * Set the color of the text
+  * @param {String} color - must be css style best is of form "rgba(244, 66, 167, 0.5)"
+  */
+  setTextColor( color ){
+    this._textColor = color;
+  }
+  
+  
+  /**
+  * Define the thickness of the curve
+  * @param {Number} t - thickness in pixel
+  */
+  setCurveThickness( t ){
+    this._curveThickness = t;
+  }
 
+  
+  /**
+  * Define the canvas background color
+  * @param {String} color - must be css style best is of form "rgba(244, 66, 167, 0.5)" 
+  * Can allso be null/0/false to leave a blank background
+  */
+  setBackgroundColor( color ){
+    this._backgroundColor = color;
+  }
+  
 
   /**
   * @param {String} splineType - "natural" or "monotonic"
@@ -605,39 +693,52 @@ class CanvasSpliner {
 
     // check what control point is the closest from the pointer position
     var closestPointInfo = this._pointCollection.getClosestFrom( this._mouse );
+    
+    if(!closestPointInfo)
+      return;
 
     // no point is currently grabbed
-    if(this._pointGrabedIndex == -1){
+    if(this._pointGrabbedIndex == -1){
       // the pointer hovers a point
-      if( closestPointInfo.distance <= this._controlPointRadius.idle){
+      if( closestPointInfo.distance <= this._controlPointRadius){
         this._pointHoveredIndex = closestPointInfo.index;
       }
       // the pointer does not hover a point
       else{
+        // ... but maybe it used to hove a point, in this case we want to redraw
+        // to change back the color to idle mode
+        var mustRedraw = false;
+        if( this._pointHoveredIndex != -1)
+          mustRedraw = true;
+          
         this._pointHoveredIndex = -1;
+        
+        if(mustRedraw)
+          this.draw();
+          
       }
 
     }
     // a point is grabbed
     else{
-      this._pointGrabedIndex = this._pointCollection.updatePoint( this._pointGrabedIndex, this._mouse );
-      this._pointHoveredIndex = this._pointGrabedIndex;
+      this._pointGrabbedIndex = this._pointCollection.updatePoint( this._pointGrabbedIndex, this._mouse );
+      this._pointHoveredIndex = this._pointGrabbedIndex;
 
     }
 
     // reduce usless drawing
-    if( this._pointHoveredIndex != -1 || this._pointGrabedIndex != -1){
+    if( this._pointHoveredIndex != -1 || this._pointGrabbedIndex != -1){
       this.draw();
 
     }
 
 
     // now the buffer is filled (after draw)
-    if( this._pointGrabedIndex != -1 ){
-      var grabedPoint = this._pointCollection.getPoint( this._pointGrabedIndex );
+    if( this._pointGrabbedIndex != -1 ){
+      var grabbedPoint = this._pointCollection.getPoint( this._pointGrabbedIndex );
       this._drawCoordinates(
-        Math.round((grabedPoint.x / this._width)*1000 ) / 1000,
-        Math.round((grabedPoint.y/this._height)*1000 ) / 1000
+        Math.round((grabbedPoint.x / this._width)*1000 ) / 1000,
+        Math.round((grabbedPoint.y/this._height)*1000 ) / 1000
       );
 
       if(this._onEvents.move)
@@ -660,7 +761,7 @@ class CanvasSpliner {
 
     if( this._pointHoveredIndex != -1 ){
       console.log("grabing a point");
-      this._pointGrabedIndex = this._pointHoveredIndex;
+      this._pointGrabbedIndex = this._pointHoveredIndex;
     }
   }
 
@@ -671,13 +772,13 @@ class CanvasSpliner {
   */
   _onCanvasMouseUp(evt){
     console.log( 'up ' );
-    var aPointWasGrabed = (this._pointGrabedIndex != -1);
+    var aPointWasGrabbed = (this._pointGrabbedIndex != -1);
     this._mouseDown = false;
-    this._pointGrabedIndex = -1;
+    this._pointGrabbedIndex = -1;
 
     this.draw();
 
-    if(this._onEvents.released && aPointWasGrabed)
+    if(this._onEvents.released && aPointWasGrabbed)
       this._onEvents.released( this._xSeriesInterpolated, this._ySeriesInterpolated );
   }
 
@@ -696,7 +797,7 @@ class CanvasSpliner {
     }else{
       this.remove( this._pointHoveredIndex );
       this._pointHoveredIndex = -1;
-      this._pointGrabedIndex = -1;
+      this._pointGrabbedIndex = -1;
     }
 
   }
@@ -713,7 +814,7 @@ class CanvasSpliner {
     this._canvas.style.border = this._borderStyle.out;
 
     this._mouseDown = false;
-    this._pointGrabedIndex = -1;
+    this._pointGrabbedIndex = -1;
     this._pointHoveredIndex = -1;
 
     this.draw();
@@ -775,31 +876,57 @@ class CanvasSpliner {
   }
 
 
+  /**
+  * Remove a point using its index
+  * @param {Number} index - index of the point to remove (from left to right, starting at 0)
+  */
   remove( index$$1 ){
     this._pointCollection.remove( index$$1 );
     this.draw();
   }
 
+
+  /**
+  * Draw the whole canvas
+  */
   draw(){
     this._ctx.clearRect(0, 0, this._width, this._height);
-
+    this._fillBackground();
     this._drawGrid();
-
     this._drawData();
-
-
+  }
+  
+  
+  /**
+  * [PRIVATE]
+  * Paint the background with a given color
+  */
+  _fillBackground(){
+    if(! this._backgroundColor)
+      return;
+    
+    this._ctx.beginPath();
+    this._ctx.rect(0, 0, this._width, this._height);
+    this._ctx.fillStyle = this._backgroundColor;
+    this._ctx.fill();
   }
 
 
+  /**
+  * [PRIVATE]
+  * Display xy coordinates on the upper left corner
+  */
   _drawCoordinates(x, y){
     var textSize = 14 / this._screenRatio;
-    this._ctx.fillStyle = "rgba(0, 0, 0, 0.3)";
+    this._ctx.fillStyle = this._gridColor;
     this._ctx.font = textSize + "px courier";
     this._ctx.fillText("x: " + x, 10/this._screenRatio, 20/this._screenRatio);
     this._ctx.fillText("y: " + y, 10/this._screenRatio, 35/this._screenRatio);
   }
 
+
   /**
+  * [PRIVATE]
   * Draw the background grid
   */
   _drawGrid(){
@@ -812,18 +939,18 @@ class CanvasSpliner {
     this._ctx.beginPath();
     this._ctx.moveTo(0, 0);
 
-    for(var i=step*this._height/this._screenRatio; i<=(1-step)*this._height/this._screenRatio; i += step*this._height/this._screenRatio){
+    for(var i=step*this._height/this._screenRatio; i<this._height/this._screenRatio; i += step*this._height/this._screenRatio){
       this._ctx.moveTo(0, i + 0.5/this._screenRatio);
       this._ctx.lineTo(this._width ,i + 0.5/this._screenRatio );
     }
 
     this._ctx.moveTo(0, 0);
-    for(var i=step*this._width/this._screenRatio; i<=(1-step)*this._width/this._screenRatio; i += step*this._width/this._screenRatio){
+    for(var i=step*this._width/this._screenRatio; i<this._width/this._screenRatio; i += step*this._width/this._screenRatio){
       this._ctx.moveTo(i + 0.5/this._screenRatio, 0);
       this._ctx.lineTo(i + 0.5/this._screenRatio , this._height );
     }
 
-    this._ctx.strokeStyle = "rgba(0, 0, 0, 0.1)";
+    this._ctx.strokeStyle = this._textColor;
     this._ctx.lineWidth = 0.5;
     this._ctx.stroke();
     this._ctx.closePath();
@@ -831,6 +958,7 @@ class CanvasSpliner {
 
 
   /**
+  * [PRIVATE]
   * Draw the data on the canvas
   * @param {Boolean} curve - whether or not we draw the curve
   * @param {Boolean} control - whether or not we draw the control points
@@ -893,8 +1021,8 @@ class CanvasSpliner {
         this._ctx.lineTo(x/this._screenRatio, (this._height - y)/this._screenRatio);
       }
 
-      this._ctx.strokeStyle = this._curveStyle.idle;
-      this._ctx.lineWidth = this._curveThickness.idle / this._screenRatio;
+      this._ctx.strokeStyle = this._pointGrabbedIndex == -1 ?  this._curveColor.idle : this._curveColor.moving;
+      this._ctx.lineWidth = this._curveThickness / this._screenRatio;
       this._ctx.stroke();
       this._ctx.closePath();
     }
@@ -908,29 +1036,29 @@ class CanvasSpliner {
         this._ctx.arc(
           xSeries[i]/this._screenRatio,
           (this._height - ySeries[i]) / this._screenRatio,
-          this._controlPointRadius.idle/this._screenRatio,
+          this._controlPointRadius/this._screenRatio,
           0,
           2*Math.PI
         );
 
-        // drawing a point that is neither hovered nor grabed
+        // drawing a point that is neither hovered nor grabbed
         if( this._pointHoveredIndex == -1 ){
-          this._ctx.fillStyle = this._controlPointStyle.idle;
+          this._ctx.fillStyle = this._controlPointColor.idle;
         }else{
-          // drawing a point that is hovered or grabed
+          // drawing a point that is hovered or grabbed
           if( i == this._pointHoveredIndex){
 
-            // the point is grabed
+            // the point is grabbed
             if( this._mouseDown ){
-              this._ctx.fillStyle = this._controlPointStyle.grabed;
+              this._ctx.fillStyle = this._controlPointColor.grabbed;
             }
             // the point is hovered
             else{
-              this._ctx.fillStyle = this._controlPointStyle.hovered;
+              this._ctx.fillStyle = this._controlPointColor.hovered;
             }
 
           }else{
-            this._ctx.fillStyle = this._controlPointStyle.idle;
+            this._ctx.fillStyle = this._controlPointColor.idle;
           }
         }
 
@@ -961,7 +1089,7 @@ class CanvasSpliner {
     // somwhere in the the series, we interpolate
     else{
       var splineInterpolator = new this._splineConstructor(xSeries, ySeries);
-      return splineInterpolator.interpolate( x / this._width ) / this._height;
+      return splineInterpolator.interpolate( x * this._width ) / this._height;
     }
 
   }

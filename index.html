@@ -110,7 +110,7 @@
     // 500 : the width in pixel
     // 500 : the height in pixel
     // "monotonic" : the type of cubic spline, could be "natural"
-    var cs = new pixpipeUI.CanvasSpliner("parent", 500, 500, "monotonic");
+    var cs = new pixpipeUI.CanvasSpliner("parent", 500, 500);
 
     /*
     for each point we have:
@@ -121,19 +121,23 @@
       safe: cannot be deleted when hovering and pressin "d"
     */
 
-    cs.add( {x:0, y: 0 /*, xLocked: true, yLocked: true, safe: true*/} );
+/*
+    cs.add( {x:0, y: 0 , xLocked: true, yLocked: true, safe: true} );
     cs.add( {x:0.1, y: 0.4} );
     cs.add( {x:0.3, y: 0.45} );
     cs.add( {x:0.6, y: 0.8} );
-    cs.add( {x:1, y: 0.6 /*, xLocked: true, safe: true*/} );
-
+    cs.add( {x:1, y: 0.6 , xLocked: true, safe: true} );
+*/
     // define the type of interpolation
     //cs.setSplineType("monotonic")
     //cs.setSplineType("natural")
 
     // Define the step of the grid at the background
-    cs.setGridStep(0.25);
+    cs.setGridStep( 1/3 );
 
+
+    var interpolatedVal = cs.getValue( 0.33 )
+    console.log( interpolatedVal );
 
     // defining some events (optional) ************************
     
