@@ -99,19 +99,17 @@ var interpolatedYs = cs.getYSeriesInterpolated();
 CanvasSpliner can trigger two events:
 - When grabbing a point and moving it, called at every *mousemove* event
 ```javascript
-cs.on( "move", function(xInterpolated, yInterpolated){
-  // here, the argument xInterpolated and yInterpolated
-  // are the same as if doing:
-  // cs.getXSeriesInterpolated() and
+cs.on( "movePoint", function( csObj ){
+  // here, csObj is the same object as cs. We can then call
+  // cs.getXSeriesInterpolated() or
   // cs.getYSeriesInterpolated()
 })
 ```
 - When a point was grabed but id just released
 ```javascript
-cs.on( "released", function(xInterpolated, yInterpolated){
-  // here, the argument xInterpolated and yInterpolated
-  // are the same as if doing:
-  // cs.getXSeriesInterpolated() and
+cs.on( "releasePoint", function( csObj ){
+  // here, csObj is the same object as cs. We can then call
+  // cs.getXSeriesInterpolated() or
   // cs.getYSeriesInterpolated()
 })
 ```

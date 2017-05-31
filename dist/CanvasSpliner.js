@@ -445,8 +445,9 @@ class PointCollection {
 
 /**
 * events:
-*   - "move" called everytime the pointer moves a point, with argument x and y normalized arrays
-*   - "released" called everytime the pointers is released after moving a point, with argument x and y normalized arrays
+*   - "movePoint" called everytime the pointer moves a point, with argument x and y normalized arrays
+*   - "releasePoint" called everytime the pointers is released after moving a point, with argument x and y normalized arrays
+*   - "pointAdded"
 */
 class CanvasSpliner {
 
@@ -548,15 +549,16 @@ class CanvasSpliner {
     this._pointCollection.setBoundary("max", "y", height);
 
     // interpolated values in a buffer
-    this._xSeriesInterpolated = new Array(this._width).fill(0);
-    this._ySeriesInterpolated = new Array(this._width).fill(0);
+    this._xSeriesInterpolated = new Float32Array(this._width).fill(0);
+    this._ySeriesInterpolated = new Float32Array(this._width).fill(0);
 
     this._gridStep = 1/3;
 
     // events
     this._onEvents = {
-      move: null,
-      released: null
+      movePoint: null,
+      releasePoint: null,
+      pointAdded: null
     };
     
     this.draw();
@@ -744,8 +746,8 @@ class CanvasSpliner {
         Math.round((grabbedPoint.y/this._height)*1000 ) / 1000
       );
 
-      if(this._onEvents.move)
-        this._onEvents.move( this._xSeriesInterpolated, this._ySeriesInterpolated );
+      if(this._onEvents.movePoint)
+        this._onEvents.movePoint( this );
 
     }
 
@@ -781,8 +783,8 @@ class CanvasSpliner {
 
     this.draw();
 
-    if(this._onEvents.released && aPointWasGrabbed)
-      this._onEvents.released( this._xSeriesInterpolated, this._ySeriesInterpolated );
+    if(this._onEvents.releasePoint && aPointWasGrabbed)
+      this._onEvents.releasePoint( this );
   }
 
 
@@ -874,6 +876,9 @@ class CanvasSpliner {
     if( draw ){
       this.draw();
     }
+    
+    if(this._onEvents.pointAdded)
+      this._onEvents.pointAdded( this, pt, index$$1 );
 
     return index$$1;
   }
@@ -884,8 +889,11 @@ class CanvasSpliner {
   * @param {Number} index - index of the point to remove (from left to right, starting at 0)
   */
   remove( index$$1 ){
-    this._pointCollection.remove( index$$1 );
+    var removedPoint = this._pointCollection.remove( index$$1 );
     this.draw();
+    
+    if(this._onEvents.pointRemoved)
+      this._onEvents.pointRemoved( this, index$$1, removedPoint );
   }
 
 
@@ -1100,7 +1108,7 @@ class CanvasSpliner {
 
   /**
   * Define an event
-  * @param {String} eventName - name of the event. "move" and "released". They are both called with the interpolated x and y series
+  * @param {String} eventName - name of the event. "movePoint", "releasePoint", "pointAdded" or "pointRemoved". They are both called with this in argument
   */
   on( eventName, callback ){
     this._onEvents[ eventName ] = callback;

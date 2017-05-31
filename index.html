@@ -133,19 +133,26 @@
     // defining some events (optional) ************************
     
     // called while moving a point
-    cs.on("move", function(xInterpolated, yInterpolated){
+    cs.on("movePoint", function( csObj ){
       console.log("moving...");
-      console.log(xInterpolated);
-      console.log(yInterpolated);
     })
     
     // called when releasing the mouse after having clicked on a point
-    cs.on("released", function(xInterpolated, yInterpolated){
-      console.log("released");
-      console.log(xInterpolated);
-      console.log(yInterpolated);
+    cs.on("releasePoint", function( csObj ){
+      console.log("released point");
     })
-
+    
+    // called when a point is added
+    cs.on("pointAdded", function( csObj, ptAdded, index ){
+      console.log("new point!");
+      console.log( ptAdded );
+    })
+    
+    // called when a point is removed
+    cs.on("pointRemoved", function( csObj, ptRemoved, formerIndex ){
+      console.log("point removed.");
+      console.log( ptRemoved );
+    })
     
 
 
