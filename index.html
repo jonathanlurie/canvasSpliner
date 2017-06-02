@@ -113,7 +113,7 @@
     */
 
 
-    cs.add( {x:0, y: 0 , xLocked: true, yLocked: true, safe: true} );
+    //cs.add( {x:0, y: 0 , xLocked: true, yLocked: true, safe: true} );
     cs.add( {x:0.1, y: 0.4} );
     cs.add( {x:0.3, y: 0.45} );
     cs.add( {x:0.6, y: 0.8} );
@@ -143,15 +143,13 @@
     })
     
     // called when a point is added
-    cs.on("pointAdded", function( csObj, ptAdded, index ){
+    cs.on("pointAdded", function( csObj ){
       console.log("new point!");
-      console.log( ptAdded );
     })
     
     // called when a point is removed
-    cs.on("pointRemoved", function( csObj, ptRemoved, formerIndex ){
+    cs.on("pointRemoved", function( csObj ){
       console.log("point removed.");
-      console.log( ptRemoved );
     })
     
 

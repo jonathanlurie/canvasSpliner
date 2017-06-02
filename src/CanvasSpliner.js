@@ -328,11 +328,11 @@ class CanvasSpliner {
   * for when the mouse is clicked over the canvas
   */
   _onCanvasMouseDown(evt){
-    console.log( 'down ');
+    //console.log( 'down ');
     this._mouseDown = true;
 
     if( this._pointHoveredIndex != -1 ){
-      console.log("grabing a point");
+      //console.log("grabing a point");
       this._pointGrabbedIndex = this._pointHoveredIndex
     }
   }
@@ -343,7 +343,7 @@ class CanvasSpliner {
   * for when the mouse is released over the canvas
   */
   _onCanvasMouseUp(evt){
-    console.log( 'up ' );
+    //console.log( 'up ' );
     var aPointWasGrabbed = (this._pointGrabbedIndex != -1)
     this._mouseDown = false;
     this._pointGrabbedIndex = -1;
@@ -360,7 +360,7 @@ class CanvasSpliner {
   * for when we double click on the canvas
   */
   _onCanvasMouseDbclick(evt){
-    console.log("dbclick");
+    //console.log("dbclick");
     this._canvas.focus();
 
     if(this._pointHoveredIndex == -1 ){
@@ -381,7 +381,7 @@ class CanvasSpliner {
   */
   _onCanvasMouseLeave(evt){
     this._mouse = null;
-    console.log( "leave" );
+    //console.log( "leave" );
     this._canvas.blur();
     this._canvas.style.border = this._borderStyle.out;
 
@@ -398,7 +398,7 @@ class CanvasSpliner {
   * The mouse enters the canvas
   */
   _onCanvasMouseEnter(evt){
-    console.log("enter");
+    //console.log("enter");
     this._canvas.focus();
     this._canvas.style.border = this._borderStyle.in;
   }
@@ -413,7 +413,7 @@ class CanvasSpliner {
     if(! this._mouse)
       return;
 
-    console.log("pressed: " + evt.key);
+    //console.log("pressed: " + evt.key);
 
     switch (evt.key) {
       case "d":
@@ -437,7 +437,7 @@ class CanvasSpliner {
       pt.x *= this._width;
       pt.y *= this._height;
       index = this._pointCollection.add( pt );
-      console.log("a point is added");
+      //console.log("a point is added");
     }
 
     if( draw ){
@@ -445,7 +445,7 @@ class CanvasSpliner {
     }
     
     if(this._onEvents.pointAdded)
-      this._onEvents.pointAdded( this, pt, index );
+      this._onEvents.pointAdded( this );
 
     return index;
   }
@@ -460,7 +460,7 @@ class CanvasSpliner {
     this.draw();
     
     if(this._onEvents.pointRemoved)
-      this._onEvents.pointRemoved( this, index, removedPoint );
+      this._onEvents.pointRemoved( this );
   }
 
 
@@ -544,17 +544,19 @@ class CanvasSpliner {
   _drawData( curve = true, control = true){
     var xSeries = this._pointCollection.getXseries();
     var ySeries = this._pointCollection.getYseries();
-
+    var w = this._width;
+    var h = this._height;
+    
     if(!xSeries.length)
       return;
 
     // drawing the curve
     if( curve ){
 
-      console.log("draw curve");
+      //console.log("draw curve");
 
       this._ctx.beginPath();
-      this._ctx.moveTo(xSeries[0] / this._screenRatio, (this._height - ySeries[0]) / this._screenRatio);
+      this._ctx.moveTo(xSeries[0] / this._screenRatio, (h - ySeries[0]) / this._screenRatio);
 
       var splineInterpolator = new this._splineConstructor(xSeries, ySeries);
       this._xSeriesInterpolated.fill(0);
@@ -565,12 +567,12 @@ class CanvasSpliner {
         var y = ySeries[0]
 
         // copying the inteprolated values in a buffer
-        this._xSeriesInterpolated[x] = x / this._width;
-        this._ySeriesInterpolated[x] = y / this._height;
+        this._xSeriesInterpolated[x] = x / w;
+        this._ySeriesInterpolated[x] = y / h;
 
         // adjusting y for visual purpose
-        y = y < 0 ? 0.5 : y > this._height ? this._height - 0.5 : y;
-        this._ctx.lineTo(x/this._screenRatio, (this._height - y)/this._screenRatio);
+        y = y < 0 ? 0.5 : y > h ? h - 0.5 : y;
+        this._ctx.lineTo(x/this._screenRatio, (h - y)/this._screenRatio);
       }
 
       // between the first and the last point
@@ -578,25 +580,25 @@ class CanvasSpliner {
         var y = splineInterpolator.interpolate(x)
 
         // copying the inteprolated values in a buffer
-        this._xSeriesInterpolated[x] = x / this._width;
-        this._ySeriesInterpolated[x] = y / this._height;
+        this._xSeriesInterpolated[x] = x / w;
+        this._ySeriesInterpolated[x] = y / h;
 
         // adjusting y for visual purpose
-        y = y < 0 ? 0.5 : y > this._height ? this._height - 0.5 : y;
-        this._ctx.lineTo(x/this._screenRatio, (this._height - y)/this._screenRatio);
+        y = y < 0 ? 0.5 : y > h ? h - 0.5 : y;
+        this._ctx.lineTo(x/this._screenRatio, (h - y)/this._screenRatio);
       }
 
       // after the last point (if not at the right of the canvas)
-      for(var x=Math.ceil(xSeries[xSeries.length - 1]); x<this._width; x++){
+      for(var x=Math.ceil(xSeries[xSeries.length - 1]); x<w; x++){
         var y = ySeries[ySeries.length - 1]
 
         // copying the inteprolated values in a buffer
-        this._xSeriesInterpolated[x] = x / this._width;
-        this._ySeriesInterpolated[x] = y / this._height;
+        this._xSeriesInterpolated[x] = x / w;
+        this._ySeriesInterpolated[x] = y / h;
 
         // adjusting y for visual purpose
-        y = y < 0 ? 0.5 : y > this._height ? this._height - 0.5 : y;
-        this._ctx.lineTo(x/this._screenRatio, (this._height - y)/this._screenRatio);
+        y = y < 0 ? 0.5 : y > h ? h - 0.5 : y;
+        this._ctx.lineTo(x/this._screenRatio, (h - y)/this._screenRatio);
       }
 
       this._ctx.strokeStyle = this._pointGrabbedIndex == -1 ?  this._curveColor.idle : this._curveColor.moving;
@@ -613,7 +615,7 @@ class CanvasSpliner {
 
         this._ctx.arc(
           xSeries[i]/this._screenRatio,
-          (this._height - ySeries[i]) / this._screenRatio,
+          (h - ySeries[i]) / this._screenRatio,
           this._controlPointRadius/this._screenRatio,
           0,
           2*Math.PI
