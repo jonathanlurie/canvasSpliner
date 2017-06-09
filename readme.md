@@ -1,5 +1,6 @@
 [DEMO 1](http://me.jonathanlurie.fr/canvasSpliner/) - 
-[DEMO 2](http://me.jonathanlurie.fr/canvasSpliner/examples/)
+[DEMO 2](http://me.jonathanlurie.fr/canvasSpliner/examples/) - 
+[DOC](http://me.jonathanlurie.fr/canvasSpliner/doc/)
 
 # Features
 - create a nice canvas-based spline editor widget

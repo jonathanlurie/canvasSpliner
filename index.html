@@ -102,7 +102,11 @@
     // 500 : the height in pixel
     // "monotonic" : the type of cubic spline, could be "natural"
     var cs = new pixpipeUI.CanvasSpliner("parent", 500, 500);
-
+    
+    // also works when specifying directly the DOM object
+    //var cs = new pixpipeUI.CanvasSpliner(document.getElementById( "parent" ), 500, 500);
+    
+    
     /*
     for each point we have:
       x: its position on x axis

@@ -229,17 +229,18 @@
         <div class='px2'>
 <div class='py1'><section class='py2 clearfix'>
   <h2 id='CanvasSpliner' class='mt0'>
-    CanvasSpliner<span class='gray'>(parentID, width, height, splineType)</span>
+    CanvasSpliner<span class='gray'>(parentContainer, width, height, splineType)</span>
   </h2>
   <p>events:</p>
 <ul>
-<li>&quot;move&quot; called everytime the pointer moves a point, with argument x and y normalized arrays</li>
-<li>&quot;released&quot; called everytime the pointers is released after moving a point, with argument x and y normalized arrays</li>
+<li>&quot;movePoint&quot; called everytime the pointer moves a point, with argument x and y normalized arrays</li>
+<li>&quot;releasePoint&quot; called everytime the pointers is released after moving a point, with argument x and y normalized arrays</li>
+<li>&quot;pointAdded&quot;</li>
 </ul>
 
     <h4>Parameters</h4>
     <ul class='suppress-p-margin'>
-        <li> <strong>parentID</strong>
+        <li> <strong>parentContainer</strong>
           :
           <div class='force-inline'>
             
@@ -674,7 +675,7 @@ Refresh the position of the pointer we store internally (relative to the canvas)
         <div class='collapsible' id='CanvasSpliner.constructor'>
           <a href='#CanvasSpliner.constructor'>
             <code>
-              #constructor<span class='gray'>(parentID, width, height, splineType)</span>
+              #constructor<span class='gray'>(parentContainer, width, height, splineType)</span>
             </code>
             <div class='force-inline'>
               
@@ -683,27 +684,30 @@ Refresh the position of the pointer we store internally (relative to the canvas)
           <div class='collapser border px2'>
             <section class='py2 clearfix'>
               <h2 id='CanvasSpliner.constructor' class='mt0'>
-                constructor<span class='gray'>(parentID, width, height, splineType)</span>
+                constructor<span class='gray'>(parentContainer, width, height, splineType)</span>
               </h2>
               
                 <h4>Parameters</h4>
                 <ul class='suppress-p-margin'>
-                    <li> <strong>parentID</strong>
+                    <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></code> <strong>parentContainer</strong>
                       :
                       <div class='force-inline'>
-                        
+                        <p>can be a String: the ID of the parent DIV, or can be directly the DOM element that will host the CanvasSpliner</p>
+            
                       </div>
                     </li>
-                    <li> <strong>width</strong>
+                    <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code> <strong>width</strong>
                       :
                       <div class='force-inline'>
-                        
+                        <p>width of the canvas where CanvasSpliner draws</p>
+            
                       </div>
                     </li>
-                    <li> <strong>height</strong>
+                    <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number">Number</a></code> <strong>height</strong>
                       :
                       <div class='force-inline'>
-                        
+                        <p>height of the canvas where CanvasSpliner draws</p>
+            
                       </div>
                     </li>
                     <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></code> <strong>splineType</strong>
@@ -852,7 +856,7 @@ See getYSeriesInterpolated to get the corresponding interpolated values.</p>
                     <li><code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">String</a></code> <strong>eventName</strong>
                       :
                       <div class='force-inline'>
-                        <p>name of the event. &quot;move&quot; and &quot;released&quot;. They are both called with the interpolated x and y series</p>
+                        <p>name of the event. &quot;movePoint&quot;, &quot;releasePoint&quot;, &quot;pointAdded&quot; or &quot;pointRemoved&quot;. They are both called with this in argument</p>
             
                       </div>
                     </li>

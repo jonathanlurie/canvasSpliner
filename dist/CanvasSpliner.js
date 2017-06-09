@@ -452,9 +452,12 @@ class PointCollection {
 class CanvasSpliner {
 
   /**
+  * @param {Object} parentContainer - can be a String: the ID of the parent DIV, or can be directly the DOM element that will host the CanvasSpliner
+  * @param {Number} width - width of the canvas where CanvasSpliner draws 
+  * @param {Number} height - height of the canvas where CanvasSpliner draws
   * @param {String} splineType - "natural" or "monotonic"
   */
-  constructor(parentID, width, height, splineType = 'natural'){
+  constructor(parentContainer, width, height, splineType = 'natural'){
     // some styling
 
     // borders of the canvas element
@@ -502,8 +505,15 @@ class CanvasSpliner {
 
     this._screenRatio = window.devicePixelRatio;
 
-    var parentElem = document.getElementById(parentID);
-
+    var parentElem = null;
+    
+    if (typeof parentContainer === 'string' || parentContainer instanceof String){
+      parentElem = document.getElementById( parentContainer );
+    }else{
+      parentElem = parentContainer;
+    }
+    
+    
     // abort if parent div does not exist
     if(!parentElem)
       return;
