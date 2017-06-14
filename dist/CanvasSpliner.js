@@ -1,7 +1,7 @@
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
     typeof define === 'function' && define.amd ? define(['exports'], factory) :
-    (factory((global.pixpipeUI = global.pixpipeUI || {})));
+    (factory((global.CanvasSpliner = global.CanvasSpliner || {})));
 }(this, (function (exports) { 'use strict';
 
 /**
@@ -540,7 +540,8 @@ class CanvasSpliner {
     // init the mouse and keyboard events
     this._canvas.addEventListener('mousemove', this._onCanvasMouseMove.bind(this), false);
     this._canvas.addEventListener('mousedown', this._onCanvasMouseDown.bind(this), false);
-    this._canvas.addEventListener('mouseup', this._onCanvasMouseUp.bind(this), false);
+    //this._canvas.addEventListener('mouseup', this._onCanvasMouseUp.bind(this), false);
+    window.addEventListener('mouseup', this._onCanvasMouseUp.bind(this), false);
     this._canvas.addEventListener('dblclick', this._onCanvasMouseDbclick.bind(this), false);
     this._canvas.addEventListener('mouseleave', this._onCanvasMouseLeave.bind(this), false);
     this._canvas.addEventListener('mouseenter', this._onCanvasMouseEnter.bind(this), false);
@@ -823,6 +824,7 @@ class CanvasSpliner {
   * for when the mouse is leaving the canvas
   */
   _onCanvasMouseLeave(evt){
+    /*
     this._mouse = null;
     //console.log( "leave" );
     this._canvas.blur();
@@ -831,7 +833,10 @@ class CanvasSpliner {
     this._mouseDown = false;
     this._pointGrabbedIndex = -1;
     this._pointHoveredIndex = -1;
-
+    
+    this.draw();
+    */
+    
     this.draw();
   }
 

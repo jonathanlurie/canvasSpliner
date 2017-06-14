@@ -161,21 +161,21 @@
       
     <script>
       
-      var cs1 = new pixpipeUI.CanvasSpliner("cell_1", 500, 500);
+      var cs1 = new CanvasSpliner.CanvasSpliner("cell_1", 500, 500);
       cs1.add( {x:0, y: 0} );
       cs1.add( {x:0.1, y: 0.4} );
       cs1.add( {x:0.3, y: 0.45} );
       cs1.add( {x:0.6, y: 0.8} );
       cs1.add( {x:1, y: 0.6} );
 
-      var cs2 = new pixpipeUI.CanvasSpliner("cell_2", 500, 500, "monotonic");
+      var cs2 = new CanvasSpliner.CanvasSpliner("cell_2", 500, 500, "monotonic");
       cs2.add( {x:0, y: 0} );
       cs2.add( {x:0.1, y: 0.4} );
       cs2.add( {x:0.3, y: 0.45} );
       cs2.add( {x:0.6, y: 0.8} );
       cs2.add( {x:1, y: 0.6} );
       
-      var cs3 = new pixpipeUI.CanvasSpliner("cell_3", 500, 500);
+      var cs3 = new CanvasSpliner.CanvasSpliner("cell_3", 500, 500);
       cs3.setGridStep(0.1);
       cs3.add( {x:0, y: 0} );
       cs3.add( {x:0.1, y: 0.4} );
@@ -183,18 +183,18 @@
       cs3.add( {x:0.6, y: 0.8} );
       cs3.add( {x:1, y: 0.6} );
       
-      var cs4 = new pixpipeUI.CanvasSpliner("cell_4", 500, 500);
+      var cs4 = new CanvasSpliner.CanvasSpliner("cell_4", 500, 500);
       cs4.add( {x:0, y: 0, xLocked: true} );
       cs4.add( {x:0.25, y: 0.15} );
       cs4.add( {x:0.75, y: 0.85} );
       cs4.add( {x:1, y: 1,  xLocked: true} );
       
-      var cs5 = new pixpipeUI.CanvasSpliner("cell_5", 500, 500);
+      var cs5 = new CanvasSpliner.CanvasSpliner("cell_5", 500, 500);
       cs5.add( {x:0, y: 0, safe: true} );
       cs5.add( {x:0.5, y: 0.75, yLocked: true} );
       cs5.add( {x:1, y: 1,  safe: true} );
 
-      var cs6 = new pixpipeUI.CanvasSpliner("cell_6", 500, 500);
+      var cs6 = new CanvasSpliner.CanvasSpliner("cell_6", 500, 500);
       cs6.add( {x:0, y: 0} );
       cs6.add( {x:0.1, y: 0.4} );
       cs6.add( {x:0.3, y: 0.45} );
