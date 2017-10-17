@@ -20,7 +20,7 @@ class CanvasSpliner {
 
   /**
   * @param {Object} parentContainer - can be a String: the ID of the parent DIV, or can be directly the DOM element that will host the CanvasSpliner
-  * @param {Number} width - width of the canvas where CanvasSpliner draws 
+  * @param {Number} width - width of the canvas where CanvasSpliner draws
   * @param {Number} height - height of the canvas where CanvasSpliner draws
   * @param {String} splineType - "natural" or "monotonic"
   */
@@ -48,19 +48,19 @@ class CanvasSpliner {
       idle: 'rgba(0, 128, 255, 1)',
       moving: 'rgba(255, 128, 0, 1)'
     }
-    
+
     // color of the grid
     this._gridColor = "rgba(0, 0, 0, 0.3)";
-    
+
     // color of the text
     this._textColor = "rgba(0, 0, 0, 0.1)";
 
     // thickness of the curve
     this._curveThickness = 1;
-    
+
     // color of the background
     this._backgroundColor = false;
-    
+
 
     this._mouse = null;
     this._pointHoveredIndex = -1; // index of the grabbed point. -1 if none
@@ -73,14 +73,14 @@ class CanvasSpliner {
     this._screenRatio = window.devicePixelRatio;
 
     var parentElem = null;
-    
+
     if (typeof parentContainer === 'string' || parentContainer instanceof String){
       parentElem = document.getElementById( parentContainer );
     }else{
       parentElem = parentContainer;
     }
-    
-    
+
+
     // abort if parent div does not exist
     if(!parentElem)
       return;
@@ -138,11 +138,9 @@ class CanvasSpliner {
       releasePoint: null,
       pointAdded: null
     };
-    
+
     this.draw();
   }
-
-  
   /**
   * Get an array of all the x coordinates that CanvasSpliner computed an interpolation of.
   * See getYSeriesInterpolated to get the corresponding interpolated values.
@@ -151,8 +149,8 @@ class CanvasSpliner {
   getXSeriesInterpolated(){
     return this._xSeriesInterpolated;
   }
-  
-  
+
+
   /**
   * Get all the interpolated values for each x given by getXSeriesInterpolated.
   * @return {Array} of interpolated y
@@ -160,7 +158,7 @@ class CanvasSpliner {
   getYSeriesInterpolated(){
     return this._ySeriesInterpolated;
   }
-  
+
   /**
   * Change the radius of the control points
   * @param {Number} r - the radius in pixel
@@ -168,8 +166,8 @@ class CanvasSpliner {
   setControlPointRadius( r ){
     this._controlPointRadius = r;
   }
-  
-  
+
+
   /**
   * Set the color of the control point in a specific state
   * @param {String} state - must be one of: "idle", "hovered" or "grabbed"
@@ -178,7 +176,7 @@ class CanvasSpliner {
   setControlPointColor( state, color ){
     this._controlPointColor[ state ] = color;
   }
-  
+
   /**
   * Set the color of the curve in a specific state
   * @param {String} state - must be one of: "idle" or "moving"
@@ -210,8 +208,8 @@ class CanvasSpliner {
 
     this.draw();
   }
-  
-  
+
+
   /**
   * Set the color of the text
   * @param {String} color - must be css style best is of form "rgba(244, 66, 167, 0.5)"
@@ -219,8 +217,8 @@ class CanvasSpliner {
   setTextColor( color ){
     this._textColor = color;
   }
-  
-  
+
+
   /**
   * Define the thickness of the curve
   * @param {Number} t - thickness in pixel
@@ -229,16 +227,16 @@ class CanvasSpliner {
     this._curveThickness = t;
   }
 
-  
+
   /**
   * Define the canvas background color
-  * @param {String} color - must be css style best is of form "rgba(244, 66, 167, 0.5)" 
+  * @param {String} color - must be css style best is of form "rgba(244, 66, 167, 0.5)"
   * Can allso be null/0/false to leave a blank background
   */
   setBackgroundColor( color ){
     this._backgroundColor = color;
   }
-  
+
 
   /**
   * @param {String} splineType - "natural" or "monotonic"
@@ -276,7 +274,7 @@ class CanvasSpliner {
 
     // check what control point is the closest from the pointer position
     var closestPointInfo = this._pointCollection.getClosestFrom( this._mouse );
-    
+
     if(!closestPointInfo)
       return;
 
@@ -293,12 +291,12 @@ class CanvasSpliner {
         var mustRedraw = false;
         if( this._pointHoveredIndex != -1)
           mustRedraw = true;
-          
+
         this._pointHoveredIndex = -1;
-        
+
         if(mustRedraw)
           this.draw();
-          
+
       }
 
     }
@@ -400,10 +398,10 @@ class CanvasSpliner {
     this._mouseDown = false;
     this._pointGrabbedIndex = -1;
     this._pointHoveredIndex = -1;
-    
+
     this.draw();
     */
-    
+
     this.draw();
   }
 
@@ -443,11 +441,11 @@ class CanvasSpliner {
 
   /**
   * Add a point to the collection
-  * @param {Object} pt - of type {x: Number, y: Number} and optionnally the boolean properties "xLocked" and "yLocked". x and y must be in [0, 1]
+  * @param {Object} ptNormalized - of type {x: Number, y: Number} and optionnally the boolean properties "xLocked" and "yLocked". x and y must be in [0, 1]
   */
-  add( pt, draw = true ){
+  add( ptNormalized, draw = true ){
     var index = null;
-
+    let pt = JSON.parse(JSON.stringify(ptNormalized));
     if("x" in pt && "y" in pt){
       pt.x *= this._width;
       pt.y *= this._height;
@@ -458,9 +456,9 @@ class CanvasSpliner {
     if( draw ){
       this.draw();
     }
-    
+
     if(this._onEvents.pointAdded)
-      this._onEvents.pointAdded( this );
+      this._onEvents.pointAdded( this, ptNormalized, index );
 
     return index;
   }
@@ -473,9 +471,9 @@ class CanvasSpliner {
   remove( index ){
     var removedPoint = this._pointCollection.remove( index );
     this.draw();
-    
+
     if(this._onEvents.pointRemoved)
-      this._onEvents.pointRemoved( this );
+      this._onEvents.pointRemoved( this, index );
   }
 
 
@@ -488,8 +486,8 @@ class CanvasSpliner {
     this._drawGrid();
     this._drawData();
   }
-  
-  
+
+
   /**
   * [PRIVATE]
   * Paint the background with a given color
@@ -497,7 +495,7 @@ class CanvasSpliner {
   _fillBackground(){
     if(! this._backgroundColor)
       return;
-    
+
     this._ctx.beginPath();
     this._ctx.rect(0, 0, this._width, this._height);
     this._ctx.fillStyle = this._backgroundColor;
@@ -561,7 +559,7 @@ class CanvasSpliner {
     var ySeries = this._pointCollection.getYseries();
     var w = this._width;
     var h = this._height;
-    
+
     if(!xSeries.length)
       return;
 
